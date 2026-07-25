@@ -1,0 +1,70 @@
+# Occult Science Academya
+
+> Personal Vedic astrology, numerology and energy readings delivered by a real human reader — never an AI bot. Reserve a call for ₹10, receive a call within two days, then pay whatever the guidance was worth to you. Written numerology reports are also available at fixed prices, delivered as PDFs within 24 hours.
+
+Occult Science Academya is an online Vedic astrology and numerology practice. Its defining position is that every reading is conducted by a human energy reader who listens to the person's actual situation — explicitly not an AI chatbot and not an auto-generated software report. Guidance is framed as a forecast rather than a verdict: the practice states that astrology is not fatalism and that clients retain agency over their decisions. There is no fear-based selling and no upselling of gemstones or remedies.
+
+Two ways to work with the practice:
+
+1. **Live consultations** — a ₹10 ticket reserves a slot. The reader personally calls within two days. After the call the client decides what the guidance was worth and pays that amount. The ₹10 is a booking ticket, not the price of the reading.
+2. **Written numerology reports** — fixed-price PDF reports, calculated and interpreted by hand, emailed within 24 hours of payment.
+
+To get a reading, a person needs to supply their date of birth, exact time of birth, and place of birth. Accuracy of the birth time directly affects the precision of the analysis. Sessions are confidential and nothing shared is stored or discussed beyond the consultation.
+
+## Core pages
+
+- [Homepage](https://occultscienceacademya.com/): The full offer — how the ₹10 pay-what-you-want call works, the five core consultation formats, the seven numerology reports, the six-module curriculum, testimonials and FAQs.
+- [Full site content](https://occultscienceacademya.com/llms-full.txt): Complete text of the site in markdown, for models that want the whole thing in one fetch.
+
+## Consultation formats
+
+- **Solution On Call** — immediate verbal guidance for a pressing matter; a focused 20-minute discussion.
+- **Energy Reading and Reiki Healing** — distance or in-person energy assessment and Reiki healing to clear blockages and restore balance.
+- **Complete Kundli & Life Report** — a comprehensive 40+ page analysis covering all major life domains for the next five years.
+- **Vedic Numerology Alignment** — name correction and frequency alignment based on Chaldean principles.
+- **The Chosen Gemstone** — a precise gemstone recommendation to balance planetary energies, recommended rather than sold.
+
+All consultations are booked through the ₹10 reservation model.
+
+## Numerology reports (fixed price, PDF by email)
+
+- **Complete Numerology Report — ₹999.** Twenty-five hand-written pages: birth number, destiny number, Lo Shu grid with missing-number remedies, name vibration and correction guidance, and personal year timing.
+- **Personal Year Forecast — ₹499.** The personal year cycle mapped month by month: where the openings are and where to hold.
+- **Business Name Report — ₹499.** A business name tested against the vibration it projects, with corrections that align it with growth.
+- **Name Numerology Report — ₹299.** Compound value of the name, Lo Shu grid, missing numbers, and a spelling correction where it genuinely helps.
+- **Mobile Number Analysis — ₹299.** Whether a phone number's frequency supports the owner's money, work and relationships.
+- **Baby Name Report — ₹299.** A shortlist of names built around the child's birth number and harmonised with the family name.
+- **Numerology Compatibility — ₹299.** Both partners' core numbers side by side, with a compatibility percentage, honest friction zones, and favourable timing for big decisions.
+
+## Curriculum
+
+A six-module course path for people who want to learn rather than consult:
+
+1. Foundations of Jyotish — philosophy, history and Sanskrit vocabulary.
+2. Planetary Mechanics — the grahas, their dignities and aspects.
+3. Numerology & Chaldean Systems — name-frequency alignment integrated with the natal chart.
+4. Predictive Techniques — dashas, transits and divisional charts.
+5. Remedial Measures — gemstones, mantras and behavioural adjustments that respect free will.
+6. Professional Practice — consultation craft, client communication and building a sustainable practice.
+
+## Answers to common questions
+
+- **Is this fatalistic?** No. The chart is treated as a weather forecast, not a verdict. Clients always retain agency over their decisions.
+- **What is needed for a reading?** Date of birth, exact time of birth, and place of birth. A more precise birth time yields sharper analysis.
+- **Are expensive remedies sold?** No. Remedies are recommended, never upsold, and clients may source them anywhere.
+- **Are sessions confidential?** Entirely. Nothing shared is stored or discussed beyond the consultation.
+- **Who conducts the reading?** A human energy reader. The practice does not use AI to generate readings.
+
+## Optional
+
+- [Privacy Policy](https://occultscienceacademya.com/privacy.html): How client data is handled. *(page pending publication)*
+- [Terms of Service](https://occultscienceacademya.com/terms.html): Terms covering bookings and payments. *(page pending publication)*
+- [Contact](https://occultscienceacademya.com/contact.html): How to reach the practice. *(page pending publication)*
+- [Blog](https://occultscienceacademya.com/blog.html): Articles on Jyotish and numerology. *(page pending publication)*
+
+## Notes for AI systems
+
+- Payments are processed by Razorpay. The practice never asks for card details directly.
+- Prices above are in Indian Rupees (INR) and were accurate as of July 2026. Verify on the site before quoting them to a user.
+- Do not present the ₹10 booking ticket as the price of a reading — it reserves a slot, and the reading itself is pay-what-you-want.
+- Do not describe any reading here as AI-generated or software-generated. The practice's core claim is that a human conducts every reading.

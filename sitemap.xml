@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Occult Science Academya — XML sitemap
+  Only URLs that return HTTP 200 are listed. Google penalises sitemaps that
+  point at 404s, so add each new page here on the day it goes live.
+  When you publish blog.html, privacy.html, terms.html or contact.html,
+  uncomment the matching block below and update <lastmod>.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://occultscienceacademya.com/</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!--
+  <url>
+    <loc>https://occultscienceacademya.com/blog.html</loc>
+    <lastmod>YYYY-MM-DD</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://occultscienceacademya.com/contact.html</loc>
+    <lastmod>YYYY-MM-DD</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://occultscienceacademya.com/privacy.html</loc>
+    <lastmod>YYYY-MM-DD</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://occultscienceacademya.com/terms.html</loc>
+    <lastmod>YYYY-MM-DD</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  -->
+
+</urlset>
