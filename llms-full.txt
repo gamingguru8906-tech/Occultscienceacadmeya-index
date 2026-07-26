@@ -1,6 +1,6 @@
 # Occult Science Academya — Full Site Content
 
-> Source: https://occultscienceacademya.com/
+> Source: https://occultscienceacademy.com/
 > Format: complete page text in markdown, for language models and AI search systems.
 > Last updated: 2026-07-25
 

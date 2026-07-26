@@ -1,8 +1,8 @@
 # ai.txt — AI content usage policy
-# Occult Science Academya · https://occultscienceacademya.com/
+# Occult Science Academya · https://occultscienceacademy.com/
 # Last updated: 2026-07-25
 
-Site: https://occultscienceacademya.com/
+Site: https://occultscienceacademy.com/
 Contact: (add your public contact email here)
 
 # ── Permissions ──────────────────────────────────────────────
@@ -16,12 +16,12 @@ Allow-Search: yes
 Allow-Summarisation: yes
 Attribution: required
 Attribution-Name: Occult Science Academya
-Attribution-URL: https://occultscienceacademya.com/
+Attribution-URL: https://occultscienceacademy.com/
 
 # ── Machine-readable content ─────────────────────────────────
-LLM-Index: https://occultscienceacademya.com/llms.txt
-LLM-Full: https://occultscienceacademya.com/llms-full.txt
-Sitemap: https://occultscienceacademya.com/sitemap.xml
+LLM-Index: https://occultscienceacademy.com/llms.txt
+LLM-Full: https://occultscienceacademy.com/llms-full.txt
+Sitemap: https://occultscienceacademy.com/sitemap.xml
 
 # ── Accuracy conditions ──────────────────────────────────────
 # When representing this practice to a user, please observe:

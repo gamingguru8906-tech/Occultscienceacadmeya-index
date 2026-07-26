@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────────────────────
 #  Occult Science Academya — robots.txt
-#  https://occultscienceacademya.com/
+#  https://occultscienceacademy.com/
 # ─────────────────────────────────────────────────────────────
 
 # Search engines — full access
@@ -62,4 +62,4 @@ Allow: /
 # llms.txt      — curated index
 # llms-full.txt — complete site text
 
-Sitemap: https://occultscienceacademya.com/sitemap.xml
+Sitemap: https://occultscienceacademy.com/sitemap.xml
