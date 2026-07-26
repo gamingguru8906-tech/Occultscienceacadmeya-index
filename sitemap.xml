@@ -9,9 +9,37 @@
 
   <url>
     <loc>https://www.occultscienceacademy.com/</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.occultscienceacademy.com/blog.html</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.occultscienceacademy.com/birth-chart-what-it-can-and-cannot-tell-you.html</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.occultscienceacademy.com/lo-shu-grid-explained.html</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.occultscienceacademy.com/why-timing-matters-more-than-prediction.html</loc>
+    <lastmod>2026-07-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
@@ -41,18 +69,5 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-
-  <!--
-       blog.html is currently set to "noindex, follow" because it has no
-       articles yet. Once you publish the first posts, change that meta tag
-       in blog.html to "index, follow" and uncomment this block.
-
-  <url>
-    <loc>https://www.occultscienceacademy.com/blog.html</loc>
-    <lastmod>YYYY-MM-DD</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  -->
 
 </urlset>

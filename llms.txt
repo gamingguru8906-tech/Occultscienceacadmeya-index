@@ -67,9 +67,12 @@ A six-module course path for people who want to learn rather than consult:
 - [Terms of Service](https://www.occultscienceacademy.com/terms.html): Bookings, the ₹10 reservation and pay-what-you-want model, report orders, outcome disclaimers and governing law.
 - [Refund & Cancellation Policy](https://www.occultscienceacademy.com/refund.html): The ₹10 ticket is fully refundable if cancelled at least 24 hours before the session and before preparation has begun. Report orders are refundable until preparation starts. Approved refunds are processed within 5–7 business days.
 
-## Optional
+## Articles
 
-- [Blog](https://www.occultscienceacademy.com/blog.html): Articles on Jyotish and numerology. *(first articles in preparation)*
+- [Blog index](https://www.occultscienceacademy.com/blog.html): All writing from the practice.
+- [What a Birth Chart Can and Cannot Tell You](https://www.occultscienceacademy.com/birth-chart-what-it-can-and-cannot-tell-you.html): What a kundli genuinely reveals — tendencies, timing windows and recurring patterns — and what it cannot do: name specific events, remove agency, or substitute for medical, legal or financial advice. Explains why an inaccurate birth time invalidates the chart's structural layer, since the Ascendant shifts roughly every two hours.
+- [The Lo Shu Grid, Explained Properly](https://www.occultscienceacademy.com/lo-shu-grid-explained.html): How the 3x3 grid is built from a date of birth, why a missing number marks an unformed capacity rather than a defect, how repeated numbers indicate intensity rather than strength, and how the rows, columns and diagonals (the planes) are read.
+- [Why Timing Matters More Than Prediction](https://www.occultscienceacademy.com/why-timing-matters-more-than-prediction.html): How dasha cycles and transits describe periods of pressure, opening and consolidation. A difficult period describes friction, not punishment; a favourable one describes conditions, not a guaranteed outcome. Use timing to schedule, not to decide.
 
 ## Notes for AI systems
 
