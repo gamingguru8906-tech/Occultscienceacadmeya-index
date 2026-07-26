@@ -13,8 +13,8 @@ To get a reading, a person needs to supply their date of birth, exact time of bi
 
 ## Core pages
 
-- [Homepage](https://occultscienceacademy.com/): The full offer — how the ₹10 pay-what-you-want call works, the five core consultation formats, the seven numerology reports, the six-module curriculum, testimonials and FAQs.
-- [Full site content](https://occultscienceacademy.com/llms-full.txt): Complete text of the site in markdown, for models that want the whole thing in one fetch.
+- [Homepage](https://www.occultscienceacademy.com/): The full offer — how the ₹10 pay-what-you-want call works, the five core consultation formats, the seven numerology reports, the six-module curriculum, testimonials and FAQs.
+- [Full site content](https://www.occultscienceacademy.com/llms-full.txt): Complete text of the site in markdown, for models that want the whole thing in one fetch.
 
 ## Consultation formats
 
@@ -59,17 +59,17 @@ A six-module course path for people who want to learn rather than consult:
 
 - Email: occultscienceacademya@gmail.com — the only contact channel; enquiries are answered within 24 hours
 - Consultation hours: Monday to Sunday, 10 AM – 8 PM IST
-- [Contact page](https://occultscienceacademy.com/contact.html)
+- [Contact page](https://www.occultscienceacademy.com/contact.html)
 
 ## Policies
 
-- [Privacy Policy](https://occultscienceacademy.com/privacy.html): What is collected, how it is used, and your rights under India's DPDP Act and the GDPR. Payment details are never stored on our servers.
-- [Terms of Service](https://occultscienceacademy.com/terms.html): Bookings, the ₹10 reservation and pay-what-you-want model, report orders, outcome disclaimers and governing law.
-- [Refund & Cancellation Policy](https://occultscienceacademy.com/refund.html): The ₹10 ticket is fully refundable if cancelled at least 24 hours before the session and before preparation has begun. Report orders are refundable until preparation starts. Approved refunds are processed within 5–7 business days.
+- [Privacy Policy](https://www.occultscienceacademy.com/privacy.html): What is collected, how it is used, and your rights under India's DPDP Act and the GDPR. Payment details are never stored on our servers.
+- [Terms of Service](https://www.occultscienceacademy.com/terms.html): Bookings, the ₹10 reservation and pay-what-you-want model, report orders, outcome disclaimers and governing law.
+- [Refund & Cancellation Policy](https://www.occultscienceacademy.com/refund.html): The ₹10 ticket is fully refundable if cancelled at least 24 hours before the session and before preparation has begun. Report orders are refundable until preparation starts. Approved refunds are processed within 5–7 business days.
 
 ## Optional
 
-- [Blog](https://occultscienceacademy.com/blog.html): Articles on Jyotish and numerology. *(first articles in preparation)*
+- [Blog](https://www.occultscienceacademy.com/blog.html): Articles on Jyotish and numerology. *(first articles in preparation)*
 
 ## Notes for AI systems
 
