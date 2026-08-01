@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Donate | Occult Science Academya — A Registered Charitable Trust</title>
+<meta name="description" content="Donate as per your ability to a 100% transparent registered charitable trust. Fund the Thursday Khichdi Drive (₹20 a meal), the Tuesday Halwa Prasad Drive (₹200), or sponsor a child's full school year for ₹3,000. Every rupee accounted for, published quarterly.">
+<meta name="keywords" content="donate charitable trust India, feed the hungry donation, khichdi drive donation, halwa prasad donation, sponsor child education India, transparent NGO donation, 80G donation, Occult Science Academya trust">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.occultscienceacademy.com/donations.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Donate as per your ability | Occult Science Academya Charitable Trust">
+<meta property="og:description" content="₹20 feeds one person. ₹3,000 sends a child to school for a year. 100% transparent accounts, published every quarter.">
+<meta property="og:site_name" content="Occult Science Academya">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Donate as per your ability | Occult Science Academya">
+<meta name="twitter:description" content="A registered charitable trust with fully public accounts. Fund a meal, a prasad drive, or a child's school year.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  "name": "Occult Science Academya Charitable Trust",
+  "url": "https://www.occultscienceacademy.com/",
+  "description": "A registered charitable trust running weekly food drives and education sponsorship, with fully transparent public accounts.",
+  "identifier": "TRUST-REG-NUMBER-PLACEHOLDER",
+  "seeks": [
+    { "@type": "Demand", "name": "Thursday Khichdi Drive", "description": "Feeds one person a nutritious khichdi meal.", "price": "20", "priceCurrency": "INR", "eligibleQuantity": { "@type": "QuantitativeValue", "minValue": 5, "unitText": "meals" } },
+    { "@type": "Demand", "name": "Tuesday Halwa Prasad Drive", "description": "Prepares and distributes one serving of sacred halwa prasad.", "price": "200", "priceCurrency": "INR", "eligibleQuantity": { "@type": "QuantitativeValue", "minValue": 5, "unitText": "servings" } },
+    { "@type": "Demand", "name": "Child Education Sponsorship", "description": "Sponsors one full academic year for one underprivileged child.", "price": "3000", "priceCurrency": "INR" }
+  ]
+}
+</script>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Razorpay Checkout SDK — required for all donation buttons -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0F4C3A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+<!-- Identical Tailwind config to index.html — keep the two in sync if you edit either -->
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-surface-variant": "#4a4e4a", "on-surface": "#2e3230", surface: "#F9F6F0", background: "#F9F6F0", "heading-slate": "#2C3E35", "deep-teal": "#0F4C3A", "canvas-beige": "#F9F6F0", "body-grey": "#4A4A4A", "sage-surface": "#D1D9D3", "secondary-fixed-dim": "#d4ccbf", "surface-container-high": "#eae6de", "gold-leaf": "#D4AF37", "warm-amber": "#A0663C"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}, spacing: {"margin-mobile": "20px", "container-max": "1280px", "section-gap": "120px", "margin-desktop": "64px", gutter: "24px"}, fontFamily: {"display-lg": ["'Playfair Display'", "serif"], "headline-lg": ["'Playfair Display'", "serif"], "headline-md": ["'Playfair Display'", "serif"], "headline-sm": ["'Playfair Display'", "serif"], "body-lg": ["'Plus Jakarta Sans'", "sans-serif"], "body-md": ["'Plus Jakarta Sans'", "sans-serif"], "label-sm": ["'Plus Jakarta Sans'", "sans-serif"], "label-lg": ["'Plus Jakarta Sans'", "sans-serif"]}, fontSize: {"display-lg": ["clamp(40px, 5vw, 64px)", {lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["clamp(32px, 4vw, 48px)", {lineHeight: "1.2", fontWeight: "600"}], "headline-md": ["clamp(24px, 3vw, 32px)", {lineHeight: "1.3", fontWeight: "500"}], "headline-sm": ["clamp(20px, 2.5vw, 24px)", {lineHeight: "1.4", fontWeight: "500"}], "body-lg": ["clamp(16px, 1.5vw, 18px)", {lineHeight: "1.6", fontWeight: "400"}], "body-md": ["clamp(14px, 1.2vw, 16px)", {lineHeight: "1.6", fontWeight: "400"}], "label-sm": ["12px", {lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600"}], "label-lg": ["14px", {lineHeight: "1", letterSpacing: "0.1em", fontWeight: "700"}]}}}};</script>
+
+<style>
+    :root { --ease: cubic-bezier(0.16, 1, 0.3, 1); }
+
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-display-lg, .font-headline-lg, .font-headline-md, .font-headline-sm { font-weight: 700 !important; font-family: 'Playfair Display', serif !important; }
+    .font-body-lg, .font-body-md, .font-label-sm, .font-label-lg { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+    .brand-logo {
+        font-family: 'Playfair Display', serif !important;
+        font-weight: 700 !important; letter-spacing: 0.05em;
+    }
+
+    .glass-card { background: rgba(244,241,235,0.85); backdrop-filter: blur(12px); }
+
+    /* ---- Cards ---- */
+    .glass-card.deckled-edge {
+        position: relative; overflow: hidden;
+        background: rgba(255,255,255,0.6);
+        transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.6s var(--ease);
+    }
+    .glass-card.deckled-edge > * { position: relative; z-index: 1; }
+    .glass-card.deckled-edge:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 40px 80px rgba(15,76,58,0.1);
+        border-color: rgba(212,175,55,0.3) !important;
+    }
+
+    h2.font-headline-lg { position: relative; padding-bottom: 0.55em; }
+
+    .eyebrow { display:inline-flex; align-items:center; gap:.6rem; }
+
+    .magnetic { transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), filter 0.4s var(--ease); }
+    .magnetic:hover { transform: translateY(-4px) scale(1.04); filter: brightness(1.1); box-shadow: 0 15px 35px rgba(15,76,58,0.15); }
+    .magnetic:active { transform: translateY(-1px) scale(0.98); box-shadow: 0 5px 15px rgba(15,76,58,0.1); }
+
+    .btn-shine { position: relative; overflow: hidden; }
+    .btn-shine::before {
+        content:""; position:absolute; top:0; left:-120%; width:60%; height:100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+        transform: skewX(-20deg); transition: left 0.6s var(--ease);
+    }
+    .btn-shine:hover::before { left: 140%; }
+
+    .u-grow { position: relative; }
+    .u-grow::after { content:""; position:absolute; left:0; bottom:-3px; height:2px; width:100%; background:#D4AF37; transform:scaleX(0); transform-origin:left; transition:transform 0.35s var(--ease); }
+    .u-grow:hover::after { transform:scaleX(1); }
+
+    .pill { backdrop-filter: blur(6px); }
+
+    .reveal { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(3px); transition: opacity 1s var(--ease), transform 1s var(--ease), filter 1s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; filter: blur(0); }
+
+    .wave { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; }
+    #nav-progress { transform: scaleX(0); transform-origin: left; transition: transform 0.1s linear; }
+
+    /* ---- Image panels ---- */
+    .img-panel {
+        position: relative; overflow: hidden; isolation: isolate;
+        background: #D1D9D3;
+    }
+    .img-panel .img-fallback {
+        position: absolute; inset: 0; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: .5rem;
+        color: rgba(15,76,58,0.5); text-align: center; padding: 1rem;
+    }
+    .img-panel img {
+        position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+        opacity: 0; transition: opacity .7s var(--ease), transform 1.2s var(--ease); transform: scale(1.06);
+    }
+    .img-panel img.loaded { opacity: 1; transform: scale(1); }
+    .img-panel::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(180deg, rgba(15,76,58,0.05) 0%, rgba(15,76,58,0.2) 100%);
+    }
+
+    /* ---- Quantity stepper (MOQ) ---- */
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .qty-input { -moz-appearance: textfield; appearance: textfield; }
+    .qty-btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 2.75rem; height: 2.75rem; border-radius: 9999px; flex-shrink: 0;
+        border: 1px solid rgba(15,76,58,0.2); color: #0F4C3A; background: rgba(255,255,255,0.6);
+        transition: background .25s var(--ease), color .25s var(--ease), opacity .25s var(--ease);
+        user-select: none;
+    }
+    .qty-btn:hover:not(:disabled) { background: #0F4C3A; color: #F9F6F0; }
+    .qty-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+    /* ---- Amount chips ---- */
+    .chip {
+        border: 1px solid rgba(15,76,58,0.2); color: #0F4C3A; background: rgba(255,255,255,0.55);
+        transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+    }
+    .chip:hover { border-color: #0F4C3A; background: rgba(15,76,58,0.05); }
+    .chip.active { background: #0F4C3A; color: #F9F6F0; border-color: #0F4C3A; }
+
+    .never-list li { position: relative; padding-left: 2rem; }
+    .never-list li::before { content: "✕"; position: absolute; left: 0; top: 0.05em; color: #D4AF37; font-weight: 700; }
+
+    #toast {
+        position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 140%);
+        z-index: 300; max-width: min(92vw, 30rem);
+        transition: transform .45s var(--ease), opacity .45s var(--ease); opacity: 0;
+    }
+    #toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .reveal { opacity: 1 !important; transform: none !important; }
+    }
+</style>
+</head>
+<body class="bg-canvas-beige text-on-surface antialiased overflow-x-hidden selection:bg-gold-leaf/30 selection:text-deep-teal relative">
+
+<!-- MARQUEE -->
+<div class="bg-deep-teal text-canvas-beige py-2 overflow-hidden relative z-[60] text-center" aria-hidden="true">
+  <span class="font-label-sm text-label-sm uppercase tracking-wider px-6">✨ 100% of your donation reaches the cause · Accounts published every quarter</span>
+</div>
+
+<!-- HEADER -->
+<header class="bg-canvas-beige/90 backdrop-blur-xl sticky top-0 w-full z-50 border-b border-sage-surface/50 shadow-sm shadow-deep-teal/5">
+  <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+    <a class="brand-logo text-headline-md text-deep-teal" href="index.html">Occult Science Academya</a>
+    <nav class="hidden md:flex items-center gap-6 lg:gap-7 font-label-lg text-label-lg uppercase tracking-widest">
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="index.html">Home</a>
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="index.html#gems">Gems &amp; Bracelets</a>
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="index.html#consultations">Consultations</a>
+      <a class="text-deep-teal border-b-2 border-gold-leaf pb-1" href="donations.html" aria-current="page">Donations</a>
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="index.html#transparency">Transparency</a>
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="index.html#faq">FAQ</a>
+    </nav>
+    <a href="#open-donation" class="magnetic btn-shine bg-deep-teal text-canvas-beige font-label-lg text-label-lg px-6 py-3 rounded-full uppercase tracking-widest hover:opacity-90 transition-opacity hidden md:inline-block">Donate</a>
+    <button class="md:hidden text-deep-teal" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="nav-progress" class="h-[3px] bg-gold-leaf w-full" aria-hidden="true"></div>
+  <nav id="mobile-menu" class="hidden md:hidden bg-canvas-beige/95 backdrop-blur-xl border-t border-sage-surface/50 px-margin-mobile py-4 flex flex-col gap-4 font-label-lg text-label-lg uppercase tracking-widest">
+    <a class="text-on-surface-variant" href="index.html">Home</a>
+    <a class="text-on-surface-variant" href="index.html#gems">Gems &amp; Bracelets</a>
+    <a class="text-on-surface-variant" href="index.html#consultations">Consultations</a>
+    <a class="text-deep-teal" href="donations.html" aria-current="page">Donations</a>
+    <a class="text-on-surface-variant" href="index.html#transparency">Transparency</a>
+    <a class="text-on-surface-variant" href="index.html#faq">FAQ</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="relative px-margin-mobile md:px-margin-desktop py-20 md:py-28 overflow-hidden">
+  <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <span class="eyebrow font-label-sm text-label-sm text-gold-leaf uppercase tracking-[0.2em]">Registered Charitable Trust</span>
+      <h1 class="font-display-lg text-headline-lg md:text-display-lg mt-4 mb-6 text-deep-teal">Donate as per your ability</h1>
+      <p class="font-body-lg text-body-lg text-body-grey mb-8 max-w-xl">There is no minimum and no suggested figure you are quietly judged against. ₹20 buys a hot meal for someone who has not eaten today. ₹3,000 keeps a child in school for a year. Give what is comfortable — and nothing you cannot spare.</p>
+      <div class="flex flex-wrap gap-3 mb-8 font-label-sm text-label-sm uppercase tracking-widest">
+        <span class="pill bg-sage-surface/30 text-deep-teal border border-sage-surface rounded-full px-4 py-2">100% to the cause</span>
+        <span class="pill bg-sage-surface/30 text-deep-teal border border-sage-surface rounded-full px-4 py-2">Public quarterly ledger</span>
+        <span class="pill bg-sage-surface/30 text-deep-teal border border-sage-surface rounded-full px-4 py-2">Secure via Razorpay</span>
+      </div>
+      <a href="#open-donation" class="magnetic btn-shine inline-flex items-center gap-2 bg-deep-teal text-canvas-beige px-10 py-4 font-label-lg text-label-lg uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity shadow-xl">
+        Give now <span class="material-symbols-outlined">volunteer_activism</span>
+      </a>
+    </div>
+    <div class="reveal img-panel rounded-[2.5rem] h-80 md:h-[28rem] w-full" style="transition-delay:.15s">
+      <div class="img-fallback">
+        <span class="material-symbols-outlined text-6xl">volunteer_activism</span>
+        <span class="font-label-sm text-label-sm uppercase tracking-widest">Service before ceremony</span>
+      </div>
+      <img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&amp;fit=crop&amp;w=1200&amp;q=70" alt="Volunteers serving hot food to people in need" loading="eager" decoding="async" onload="this.classList.add('loaded')">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     A. OPEN DONATION FORM
+     ============================================================ -->
+<section id="open-donation" class="px-margin-mobile md:px-margin-desktop pb-20 md:pb-28 relative z-10">
+  <div class="max-w-3xl mx-auto">
+    <div class="reveal glass-card deckled-edge rounded-[2.5rem] p-8 md:p-12 border border-sage-surface shadow-xl">
+      <div class="text-center mb-8">
+        <span class="eyebrow font-label-sm text-label-sm text-gold-leaf uppercase tracking-[0.2em]">Give Freely</span>
+        <h2 class="font-headline-md text-headline-md text-deep-teal mt-3">Choose your own amount</h2>
+        <p class="font-body-md text-body-md text-body-grey mt-3">Whatever you enter goes into the general trust fund, which covers whichever drive needs it most that week.</p>
+      </div>
+
+      <!-- Quick amounts -->
+      <div class="flex flex-wrap justify-center gap-3 mb-8" role="group" aria-label="Suggested donation amounts">
+        <button type="button" class="chip amount-chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-amount="101">₹101</button>
+        <button type="button" class="chip amount-chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-amount="501">₹501</button>
+        <button type="button" class="chip amount-chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-amount="1100">₹1,100</button>
+        <button type="button" class="chip amount-chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-amount="2100">₹2,100</button>
+        <button type="button" class="chip amount-chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-amount="5100">₹5,100</button>
+      </div>
+
+      <form id="open-donation-form" novalidate class="space-y-5">
+        <div>
+          <label class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal block mb-2" for="donation-amount">Your donation amount</label>
+          <div class="relative">
+            <span class="absolute left-5 top-1/2 -translate-y-1/2 font-headline-sm text-headline-sm text-deep-teal pointer-events-none">₹</span>
+            <input id="donation-amount" name="amount" type="number" inputmode="numeric" min="1" step="1" placeholder="Enter any amount"
+                   class="qty-input w-full rounded-2xl border border-sage-surface bg-white/80 pl-12 pr-5 py-5 font-headline-sm text-headline-sm text-deep-teal focus:border-gold-leaf focus:ring-2 focus:ring-gold-leaf/30 outline-none transition-all">
+          </div>
+          <p id="amount-error" class="text-red-700 font-body-md text-body-md mt-2 hidden">Please enter an amount of ₹1 or more.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal block mb-2" for="donor-name">Your name <span class="text-body-grey/60 normal-case tracking-normal">(optional)</span></label>
+            <input id="donor-name" name="name" type="text" autocomplete="name"
+                   class="w-full rounded-2xl border border-sage-surface bg-white/80 px-4 py-3 focus:border-gold-leaf focus:ring-2 focus:ring-gold-leaf/30 outline-none transition-all">
+          </div>
+          <div>
+            <label class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal block mb-2" for="donor-email">Email for your receipt <span class="text-body-grey/60 normal-case tracking-normal">(optional)</span></label>
+            <input id="donor-email" name="email" type="email" autocomplete="email"
+                   class="w-full rounded-2xl border border-sage-surface bg-white/80 px-4 py-3 focus:border-gold-leaf focus:ring-2 focus:ring-gold-leaf/30 outline-none transition-all">
+          </div>
+        </div>
+
+        <button type="submit" class="magnetic btn-shine w-full bg-deep-teal text-canvas-beige px-8 py-5 font-label-lg text-label-lg uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity shadow-lg">
+          <span id="open-donate-label">Donate Now</span>
+        </button>
+        <p class="font-label-sm text-label-sm text-body-grey/70 text-center">Secure payment via Razorpay · Cards, UPI, net banking and wallets · You will receive a receipt by email</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     B. SPECIFIC CHARITABLE CAUSES — donation packages
+     ============================================================ -->
+<section id="causes" class="px-margin-mobile md:px-margin-desktop pb-20 md:pb-28 relative z-10">
+  <div class="max-w-container-max mx-auto">
+
+    <div class="reveal text-center mb-16">
+      <span class="eyebrow font-label-sm text-label-sm text-gold-leaf uppercase tracking-[0.2em]">Fund a Specific Drive</span>
+      <h2 class="font-headline-lg text-headline-lg text-deep-teal mt-3 mb-4">Know exactly what your money buys</h2>
+      <p class="font-body-md text-body-md text-body-grey max-w-2xl mx-auto">Each of these is costed from real receipts — grain, gas, transport and volunteers' travel. Pick a drive, choose how many people you would like to cover, and the total updates as you go.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+      <!-- ── CAUSE 1: THURSDAY KHICHDI · ₹20 · MOQ 5 ── -->
+      <article id="khichdi" class="reveal glass-card deckled-edge rounded-[2.5rem] overflow-hidden border border-sage-surface shadow-md flex flex-col">
+        <div class="img-panel h-52 w-full relative">
+          <div class="img-fallback">
+            <span class="material-symbols-outlined text-5xl">restaurant</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest">Thursday Khichdi</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="A bowl of freshly cooked khichdi" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
+        </div>
+
+        <div class="p-8 flex flex-col flex-1" data-cause data-sku="DONATE-KHICHDI" data-unit="20" data-moq="5" data-label="Thursday Khichdi Drive" data-noun="meals">
+          <h3 class="font-headline-md text-headline-md text-deep-teal mb-2">Thursday Khichdi Drive</h3>
+          <p class="font-body-md text-body-md text-body-grey mb-6 flex-1">Feed the hungry with nutritious khichdi every Thursday. Hot dal, rice and vegetables, cooked fresh that morning and served on the street until the pot is empty.</p>
+
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="font-display-lg text-headline-md text-deep-teal">₹20</span>
+            <span class="font-body-md text-body-md text-body-grey">per person fed</span>
+          </div>
+          <p class="font-label-sm text-label-sm text-gold-leaf uppercase tracking-widest mb-6">Minimum 5 meals · from ₹100</p>
+
+          <!-- Quantity stepper -->
+          <div class="mb-6">
+            <label class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal block mb-3" for="qty-khichdi">How many people would you like to feed?</label>
+            <div class="flex items-center gap-3">
+              <button type="button" class="qty-btn" data-step="-1" aria-label="Decrease quantity">
+                <span class="material-symbols-outlined">remove</span>
+              </button>
+              <input id="qty-khichdi" type="number" class="qty-input flex-1 min-w-0 text-center rounded-2xl border border-sage-surface bg-white/80 px-3 py-3 font-headline-sm text-headline-sm text-deep-teal focus:border-gold-leaf focus:ring-2 focus:ring-gold-leaf/30 outline-none transition-all"
+                     value="5" min="5" step="1" data-qty aria-describedby="moq-note-khichdi">
+              <button type="button" class="qty-btn" data-step="1" aria-label="Increase quantity">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+            </div>
+            <p id="moq-note-khichdi" class="font-label-sm text-label-sm text-body-grey/70 mt-2" data-moq-note>Minimum order is 5 meals.</p>
+          </div>
+
+          <div class="flex items-center justify-between border-t border-sage-surface pt-5 mb-5">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-body-grey">Total</span>
+            <span class="font-headline-md text-headline-md text-deep-teal" data-total>₹100</span>
+          </div>
+
+          <button type="button" class="magnetic btn-shine w-full bg-deep-teal text-canvas-beige px-6 py-4 font-label-lg text-label-lg uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity" data-donate>
+            Donate <span data-btn-total>₹100</span> via Razorpay
+          </button>
+        </div>
+      </article>
+
+      <!-- ── CAUSE 2: TUESDAY HALWA · ₹200 · MOQ 5 ── -->
+      <article id="halwa" class="reveal tier-featured glass-card deckled-edge rounded-[2.5rem] overflow-hidden border border-gold-leaf/30 shadow-lg flex flex-col relative lg:-mt-4" style="transition-delay:.1s">
+        <div class="absolute top-0 right-0 z-20 bg-gold-leaf text-white font-label-sm text-label-sm px-4 py-2 rounded-bl-2xl uppercase tracking-widest">Most Given</div>
+        <div class="img-panel h-52 w-full relative">
+          <div class="img-fallback">
+            <span class="material-symbols-outlined text-5xl">local_fire_department</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest">Tuesday Halwa</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Traditional halwa prasad prepared for distribution" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
+        </div>
+
+        <div class="p-8 flex flex-col flex-1" data-cause data-sku="DONATE-HALWA" data-unit="200" data-moq="5" data-label="Tuesday Halwa Prasad Drive" data-noun="servings">
+          <h3 class="font-headline-md text-headline-md text-deep-teal mb-2">Tuesday Halwa Drive</h3>
+          <p class="font-body-md text-body-md text-body-grey mb-6 flex-1">Distribute sacred halwa prasad on Tuesdays. Prepared with pure ghee in the temple kitchen and shared with families who rarely see sweets in the house.</p>
+
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="font-display-lg text-headline-md text-deep-teal">₹200</span>
+            <span class="font-body-md text-body-md text-body-grey">per serving</span>
+          </div>
+          <p class="font-label-sm text-label-sm text-gold-leaf uppercase tracking-widest mb-6">Minimum 5 servings · from ₹1,000</p>
+
+          <div class="mb-6">
+            <label class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal block mb-3" for="qty-halwa">How many servings would you like to offer?</label>
+            <div class="flex items-center gap-3">
+              <button type="button" class="qty-btn" data-step="-1" aria-label="Decrease quantity">
+                <span class="material-symbols-outlined">remove</span>
+              </button>
+              <input id="qty-halwa" type="number" class="qty-input flex-1 min-w-0 text-center rounded-2xl border border-sage-surface bg-white/80 px-3 py-3 font-headline-sm text-headline-sm text-deep-teal focus:border-gold-leaf focus:ring-2 focus:ring-gold-leaf/30 outline-none transition-all"
+                     value="5" min="5" step="1" data-qty aria-describedby="moq-note-halwa">
+              <button type="button" class="qty-btn" data-step="1" aria-label="Increase quantity">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+            </div>
+            <p id="moq-note-halwa" class="font-label-sm text-label-sm text-body-grey/70 mt-2" data-moq-note>Minimum order is 5 servings.</p>
+          </div>
+
+          <div class="flex items-center justify-between border-t border-sage-surface pt-5 mb-5">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-body-grey">Total</span>
+            <span class="font-headline-md text-headline-md text-deep-teal" data-total>₹1,000</span>
+          </div>
+
+          <button type="button" class="magnetic btn-shine w-full bg-gold-leaf text-white px-6 py-4 font-label-lg text-label-lg uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity shadow-lg" data-donate>
+            Donate <span data-btn-total>₹1,000</span> via Razorpay
+          </button>
+        </div>
+      </article>
+
+      <!-- ── CAUSE 3: CHILD EDUCATION · ₹3000 FLAT ── -->
+      <article id="education" class="reveal glass-card deckled-edge rounded-[2.5rem] overflow-hidden border border-sage-surface shadow-md flex flex-col" style="transition-delay:.2s">
+        <div class="img-panel h-52 w-full relative">
+          <div class="img-fallback">
+            <span class="material-symbols-outlined text-5xl">school</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest">Child Education</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Children learning together in a classroom" loading="lazy" decoding="async" onload="this.classList.add('loaded')">
+        </div>
+
+        <div class="p-8 flex flex-col flex-1" data-cause data-sku="DONATE-EDUCATION" data-unit="3000" data-moq="1" data-label="Child Education Sponsorship" data-noun="children">
+          <h3 class="font-headline-md text-headline-md text-deep-teal mb-2">Child Education Sponsorship</h3>
+          <p class="font-body-md text-body-md text-body-grey mb-6 flex-1">Sponsor a complete year of education for one underprivileged child — school fees, uniform, shoes, books and stationery. You will receive their progress report at the end of the year.</p>
+
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="font-display-lg text-headline-md text-deep-teal">₹3,000</span>
+            <span class="font-body-md text-body-md text-body-grey">one child, one full year</span>
+          </div>
+          <p class="font-label-sm text-label-sm text-gold-leaf uppercase tracking-widest mb-6">Flat fee · no minimum quantity</p>
+
+          <div class="mb-6">
+            <label class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal block mb-3" for="qty-education">How many children would you like to sponsor?</label>
+            <div class="flex items-center gap-3">
+              <button type="button" class="qty-btn" data-step="-1" aria-label="Decrease quantity">
+                <span class="material-symbols-outlined">remove</span>
+              </button>
+              <input id="qty-education" type="number" class="qty-input flex-1 min-w-0 text-center rounded-2xl border border-sage-surface bg-white/80 px-3 py-3 font-headline-sm text-headline-sm text-deep-teal focus:border-gold-leaf focus:ring-2 focus:ring-gold-leaf/30 outline-none transition-all"
+                     value="1" min="1" step="1" data-qty aria-describedby="moq-note-education">
+              <button type="button" class="qty-btn" data-step="1" aria-label="Increase quantity">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+            </div>
+            <p id="moq-note-education" class="font-label-sm text-label-sm text-body-grey/70 mt-2" data-moq-note>One child per ₹3,000.</p>
+          </div>
+
+          <div class="flex items-center justify-between border-t border-sage-surface pt-5 mb-5">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-body-grey">Total</span>
+            <span class="font-headline-md text-headline-md text-deep-teal" data-total>₹3,000</span>
+          </div>
+
+          <button type="button" class="magnetic btn-shine w-full bg-deep-teal text-canvas-beige px-6 py-4 font-label-lg text-label-lg uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity" data-donate>
+            Donate <span data-btn-total>₹3,000</span> via Razorpay
+          </button>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="reveal font-body-md text-body-md text-body-grey/80 text-center mt-12 max-w-2xl mx-auto">
+      Minimum quantities exist for one practical reason: below five portions the cost of fuel and transport outweighs the food itself. It is not a sales tactic. If you would like to give less, use the <a class="u-grow text-gold-leaf" href="#open-donation">open donation</a> above — it is equally welcome.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRANSPARENCY GUARANTEE
+     ============================================================ -->
+<section id="transparency" class="bg-deep-teal text-canvas-beige py-20 md:py-28 px-margin-mobile md:px-margin-desktop relative z-10">
+  <div class="max-w-container-max mx-auto">
+    <div class="reveal text-center mb-16">
+      <span class="eyebrow font-label-sm text-label-sm text-gold-leaf uppercase tracking-[0.2em]">Our Promise</span>
+      <h2 class="font-headline-lg text-headline-lg mt-3 mb-4 text-canvas-beige">The Transparency Guarantee</h2>
+      <p class="font-body-md text-body-md text-canvas-beige/80 max-w-2xl mx-auto">You are trusting strangers on the internet with your money. That deserves more than a reassuring sentence, so here is the whole arrangement in plain terms.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      <div class="reveal border border-gold-leaf/30 rounded-2xl p-8 bg-deep-teal shadow-xl">
+        <span class="material-symbols-outlined text-gold-leaf text-3xl mb-4 block">verified_user</span>
+        <h3 class="font-headline-sm text-headline-sm text-canvas-beige mb-3">Registered &amp; verifiable</h3>
+        <p class="font-body-md text-body-md text-canvas-beige/80">A charitable trust registered under the Indian Trusts Act. Deed, registration certificate and trustee names are published — check them before you give.</p>
+      </div>
+      <div class="reveal border border-gold-leaf/30 rounded-2xl p-8 bg-deep-teal shadow-xl" style="transition-delay:.1s">
+        <span class="material-symbols-outlined text-gold-leaf text-3xl mb-4 block">receipt_long</span>
+        <h3 class="font-headline-sm text-headline-sm text-canvas-beige mb-3">Every rupee tracked</h3>
+        <p class="font-body-md text-body-md text-canvas-beige/80">A public ledger every quarter: money in, money spent, meals served, children enrolled — with dated photographs and supplier receipts behind each line.</p>
+      </div>
+      <div class="reveal border border-gold-leaf/30 rounded-2xl p-8 bg-deep-teal shadow-xl" style="transition-delay:.2s">
+        <span class="material-symbols-outlined text-gold-leaf text-3xl mb-4 block">savings</span>
+        <h3 class="font-headline-sm text-headline-sm text-canvas-beige mb-3">Straight to the cause</h3>
+        <p class="font-body-md text-body-md text-canvas-beige/80">Trustees pay the admin, website and staffing costs from their own consultation income. Your donation is not diluted by salaries or office rent.</p>
+      </div>
+      <div class="reveal border border-gold-leaf/30 rounded-2xl p-8 bg-deep-teal shadow-xl" style="transition-delay:.3s">
+        <span class="material-symbols-outlined text-gold-leaf text-3xl mb-4 block">gavel</span>
+        <h3 class="font-headline-sm text-headline-sm text-canvas-beige mb-3">Zero tolerance for cheating</h3>
+        <p class="font-body-md text-body-md text-canvas-beige/80">Anyone who uses fear, false urgency or a fabricated prediction to extract a donation is removed from this academy immediately. Founders included.</p>
+      </div>
+    </div>
+
+    <!-- Honesty code -->
+    <div class="reveal border border-gold-leaf/30 rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-10 bg-deep-teal shadow-2xl">
+      <div>
+        <h3 class="font-headline-md text-headline-md text-gold-leaf mb-6">What we will never do</h3>
+        <ul class="never-list font-body-md text-body-md text-canvas-beige/80 space-y-4">
+          <li>We will never tell you a donation removes a curse or buys divine favour.</li>
+          <li>We will never use fear or urgency to extract money from you.</li>
+          <li>We will never promise a guaranteed outcome in exchange for giving.</li>
+          <li>We will never set up a recurring payment without your clear consent.</li>
+          <li>We will never sell, rent or share your details with another organisation.</li>
+          <li>We will never chase you for a second donation.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-headline-md text-headline-md text-gold-leaf mb-6">Registration details</h3>
+        <dl class="space-y-5 font-body-md text-body-md">
+          <div>
+            <dt class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf/80 mb-1">Trust Registration No.</dt>
+            <dd class="text-canvas-beige">TODO — add your number</dd>
+          </div>
+          <div>
+            <dt class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf/80 mb-1">PAN</dt>
+            <dd class="text-canvas-beige">TODO — add your PAN</dd>
+          </div>
+          <div>
+            <dt class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf/80 mb-1">80G exemption</dt>
+            <dd class="text-canvas-beige">TODO — add certificate number, or delete this row if you are not yet 80G registered</dd>
+          </div>
+          <div>
+            <dt class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf/80 mb-1">Registered office</dt>
+            <dd class="text-canvas-beige">TODO — add address</dd>
+          </div>
+        </dl>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="#" class="magnetic btn-shine inline-flex items-center gap-2 border border-gold-leaf text-gold-leaf px-6 py-3 font-label-sm text-label-sm uppercase tracking-widest rounded-full hover:bg-gold-leaf hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-lg">description</span> Trust Deed
+          </a>
+          <a href="#" class="magnetic btn-shine inline-flex items-center gap-2 border border-gold-leaf text-gold-leaf px-6 py-3 font-label-sm text-label-sm uppercase tracking-widest rounded-full hover:bg-gold-leaf hover:text-white transition-colors">
+            <span class="material-symbols-outlined text-lg">receipt_long</span> Public Ledger
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="reveal font-label-sm text-label-sm text-canvas-beige/60 text-center mt-10 max-w-3xl mx-auto">
+      Publishing note for the site owner: replace every TODO above with real values and link both documents before this page goes live. Do not claim 80G status until the certificate is in hand — tax-benefit claims are legally binding, and an unverifiable registration number damages trust far more than an honest blank.
+    </p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-20 md:py-28 px-margin-mobile md:px-margin-desktop relative z-10">
+  <div class="max-w-3xl mx-auto">
+    <div class="reveal text-center mb-12">
+      <h2 class="font-headline-lg text-headline-lg text-deep-teal">Questions about giving</h2>
+    </div>
+    <div class="space-y-4">
+      <details class="reveal glass-card deckled-edge rounded-[2.5rem] border border-sage-surface p-6 md:p-8 group shadow-sm">
+        <summary class="font-headline-sm text-headline-sm text-deep-teal cursor-pointer list-none flex justify-between items-center gap-4">
+          Will I get a receipt?
+          <span class="material-symbols-outlined text-gold-leaf transition-transform group-open:rotate-45">add</span>
+        </summary>
+        <p class="font-body-md text-body-md text-body-grey mt-4">Yes. Razorpay emails an instant payment confirmation, and we send a trust receipt separately within three working days. If neither arrives, write to us and we will trace the transaction.</p>
+      </details>
+      <details class="reveal glass-card deckled-edge rounded-[2.5rem] border border-sage-surface p-6 md:p-8 group shadow-sm">
+        <summary class="font-headline-sm text-headline-sm text-deep-teal cursor-pointer list-none flex justify-between items-center gap-4">
+          Is my donation tax deductible?
+          <span class="material-symbols-outlined text-gold-leaf transition-transform group-open:rotate-45">add</span>
+        </summary>
+        <p class="font-body-md text-body-md text-body-grey mt-4">Only if we hold a valid 80G certificate — check the registration panel above for the current position. We would rather tell you plainly than let you assume a benefit that does not exist. Please confirm your own eligibility with a tax adviser.</p>
+      </details>
+      <details class="reveal glass-card deckled-edge rounded-[2.5rem] border border-sage-surface p-6 md:p-8 group shadow-sm">
+        <summary class="font-headline-sm text-headline-sm text-deep-teal cursor-pointer list-none flex justify-between items-center gap-4">
+          Why is there a minimum of five for the food drives?
+          <span class="material-symbols-outlined text-gold-leaf transition-transform group-open:rotate-45">add</span>
+        </summary>
+        <p class="font-body-md text-body-md text-body-grey mt-4">Below five portions, the fuel and transport cost more than the food. Batching keeps the ratio honest. If five is more than you can give, the open donation form has no minimum at all.</p>
+      </details>
+      <details class="reveal glass-card deckled-edge rounded-[2.5rem] border border-sage-surface p-6 md:p-8 group shadow-sm">
+        <summary class="font-headline-sm text-headline-sm text-deep-teal cursor-pointer list-none flex justify-between items-center gap-4">
+          Can I see where my money actually went?
+          <span class="material-symbols-outlined text-gold-leaf transition-transform group-open:rotate-45">add</span>
+        </summary>
+        <p class="font-body-md text-body-md text-body-grey mt-4">Yes. Every quarter's ledger lists income, expenditure and the count of people served, with receipts. Ask for the breakdown on any specific drive and we will send it.</p>
+      </details>
+      <details class="reveal glass-card deckled-edge rounded-[2.5rem] border border-sage-surface p-6 md:p-8 group shadow-sm">
+        <summary class="font-headline-sm text-headline-sm text-deep-teal cursor-pointer list-none flex justify-between items-center gap-4">
+          Does donating improve my horoscope or remove doshas?
+          <span class="material-symbols-outlined text-gold-leaf transition-transform group-open:rotate-45">add</span>
+        </summary>
+        <p class="font-body-md text-body-md text-body-grey mt-4">No. Feeding the hungry is a good thing to do, but we do not teach that it magically cancels your karma or changes planetary movements. Give because it helps someone today, not because you are trying to bribe the universe for tomorrow.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-deep-teal text-canvas-beige font-body-md text-body-md w-full pt-section-gap pb-8 relative z-20">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-16">
+    <div class="col-span-1 md:col-span-2">
+      <div class="font-headline-sm text-headline-sm text-canvas-beige mb-4">Occult Science Academya</div>
+      <p class="text-canvas-beige/80 max-w-sm mb-6">A registered charitable trust. Practical, logic-driven Vedic wisdom — and hot food on the table for those who need it. Clarity without the fear-mongering.</p>
+      <div class="space-y-1 text-canvas-beige/80 font-label-sm text-label-sm uppercase tracking-widest">
+        <p>Trust Reg. No. — TODO</p>
+        <p>PAN — TODO · 80G — TODO</p>
+        <p>Registered office — TODO</p>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-label-lg text-label-lg uppercase tracking-widest mb-6 text-gold-leaf">The Trust</h4>
+      <ul class="space-y-3">
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="donations.html">Make a Donation</a></li>
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="#transparency">Transparency Guarantee</a></li>
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="#">Public Ledger</a></li>
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="#">Trust Deed</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-label-lg text-label-lg uppercase tracking-widest mb-6 text-gold-leaf">Main Academy</h4>
+      <ul class="space-y-3">
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="index.html#gems">Gems &amp; Bracelets</a></li>
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="index.html#consultations">Consultations</a></li>
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="/privacy.html">Privacy Policy</a></li>
+        <li><a class="text-canvas-beige/80 hover:text-white transition-colors" href="/contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-canvas-beige/20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-8 text-canvas-beige/60 font-label-sm text-label-sm text-center space-y-2">
+    <p>© 2026 Occult Science Academya Charitable Trust. Celestial Wisdom for the Modern Soul.</p>
+    <p class="opacity-70">Astrology and energy work are offered as guidance, not as a substitute for medical, legal or financial advice. We make no guarantee of specific outcomes.</p>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast" role="status" aria-live="polite">
+  <div class="glass-card deckled-edge border border-sage-surface rounded-[2.5rem] px-6 py-4 shadow-xl flex items-center gap-3">
+    <span id="toast-icon" class="material-symbols-outlined text-gold-leaf">info</span>
+    <p id="toast-msg" class="font-body-md text-body-md text-deep-teal"></p>
+  </div>
+</div>
+
+<!-- ============================================================================
+     RAZORPAY CHECKOUT — identical to the block in index.html.
+     PUT THE SAME KEY IN BOTH FILES. See index.html for the full explanation
+     and the Node backend snippet.
+     ============================================================================ -->
+<script>
+window.OSA_PAY = (function () {
+  "use strict";
+
+  /* ───── YOUR KEYS GO HERE ─────────────────────────────────────────────
+     Paste your Razorpay Key ID below. It is public and safe in this file.
+     NEVER put the Key Secret in this file — it belongs on your server only.
+     Must match the value in index.html.                                   */
+
+  const RAZORPAY_KEY_ID = "rzp_live_T0NA0F3UpQiZxl";
+
+  // Optional server endpoint that creates the order (recommended for live use).
+  const RAZORPAY_ORDER_ENDPOINT = "";
+
+  const BRAND = {
+    name: "Occult Science Academya",
+    logo: "",
+    themeColor: "#0F4C3A" // deep-teal, matches the site
+  };
+
+  let toastTimer = null;
+  function toast(message, icon) {
+    const el = document.getElementById("toast");
+    if (!el) { console.log("[OSA]", message); return; }
+    document.getElementById("toast-msg").textContent = message;
+    document.getElementById("toast-icon").textContent = icon || "info";
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 6000);
+  }
+
+  const keyIsPlaceholder = function () {
+    return !RAZORPAY_KEY_ID || RAZORPAY_KEY_ID.indexOf("REPLACE_WITH") !== -1;
+  };
+
+  const formatINR = function (n) {
+    return "₹" + Number(n).toLocaleString("en-IN");
+  };
+
+  async function handleRazorpayCheckout(amount, purpose, meta) {
+    meta = meta || {};
+    const rupees = Number(amount);
+
+    if (!isFinite(rupees) || rupees < 1) {
+      toast("Please enter a valid amount of ₹1 or more.", "error");
+      return;
+    }
+
+    if (keyIsPlaceholder()) {
+      console.info("[OSA demo] would charge", formatINR(rupees), "for:", purpose, meta);
+      toast("Demo mode: " + formatINR(rupees) + " for " + purpose + ". Add your Razorpay Key ID to take real donations.", "science");
+      return;
+    }
+
+    if (typeof window.Razorpay === "undefined") {
+      toast("Payment library did not load. Check your connection and retry.", "wifi_off");
+      return;
+    }
+
+    const amountPaise = Math.round(rupees * 100);
+
+    let order = null;
+    if (RAZORPAY_ORDER_ENDPOINT) {
+      try {
+        const res = await fetch(RAZORPAY_ORDER_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: amountPaise, currency: "INR", purpose: purpose,
+            sku: meta.sku || null, quantity: meta.quantity || 1
+          })
+        });
+        if (!res.ok) throw new Error("Order endpoint returned " + res.status);
+        order = await res.json();
+      } catch (err) {
+        console.error("[OSA] order creation failed:", err);
+        toast("We could not start the payment just now. Please try again in a moment.", "error");
+        return;
+      }
+    }
+
+    const options = {
+      key: RAZORPAY_KEY_ID,
+      amount: order ? order.amount : amountPaise,
+      currency: "INR",
+      name: BRAND.name,
+      description: purpose,
+      image: BRAND.logo || undefined,
+      order_id: order ? order.id : undefined,
+      prefill: {
+        name: meta.name || "",
+        email: meta.email || "",
+        contact: meta.contact || ""
+      },
+      notes: {
+        purpose: purpose,
+        sku: meta.sku || "",
+        quantity: String(meta.quantity || 1),
+        unit_price: String(meta.unitPrice || rupees)
+      },
+      theme: { color: BRAND.themeColor },
+      modal: {
+        ondismiss: function () { toast("Donation cancelled — nothing was charged.", "info"); }
+      },
+      handler: function (response) {
+        // ⚠️ Verify this server-side before recording the donation.
+        console.log("[OSA] payment response:", response);
+        if (RAZORPAY_ORDER_ENDPOINT) {
+          fetch(RAZORPAY_ORDER_ENDPOINT.replace(/\/order$/, "/verify"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature
+            })
+          }).catch(function (e) { console.error("[OSA] verify call failed:", e); });
+        }
+        toast("Thank you. Payment ID " + response.razorpay_payment_id + " — your receipt is on its way.", "check_circle");
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      console.error("[OSA] payment failed:", response.error);
+      toast("Payment failed: " + (response.error && response.error.description ? response.error.description : "please try another method."), "error");
+    });
+    rzp.open();
+  }
+
+  return { checkout: handleRazorpayCheckout, toast: toast, formatINR: formatINR };
+})();
+</script>
+
+<!-- ============================================================================
+     DONATION PAGE LOGIC — MOQ quantity steppers, live totals, open donation
+     ============================================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  const fmt = window.OSA_PAY.formatINR;
+
+  /* ───── Quantity steppers with Minimum Order Quantity ─────────────────── */
+
+  document.querySelectorAll("[data-cause]").forEach(function (card) {
+    const unit  = Number(card.dataset.unit);         // price per unit, in rupees
+    const moq   = Number(card.dataset.moq) || 1;     // minimum order quantity
+    const label = card.dataset.label;
+    const noun  = card.dataset.noun || "units";
+    const sku   = card.dataset.sku;
+
+    const input     = card.querySelector("[data-qty]");
+    const totalEl   = card.querySelector("[data-total]");
+    const btnTotal  = card.querySelector("[data-btn-total]");
+    const donateBtn = card.querySelector("[data-donate]");
+    const note      = card.querySelector("[data-moq-note]");
+    const minusBtn  = card.querySelector('[data-step="-1"]');
+    const plusBtn   = card.querySelector('[data-step="1"]');
+
+    // Single source of truth for the quantity. Never allowed below the MOQ.
+    let qty = Math.max(moq, Number(input.value) || moq);
+
+    function render(showMoqWarning) {
+      input.value = qty;
+      const total = qty * unit;
+      totalEl.textContent = fmt(total);
+      btnTotal.textContent = fmt(total);
+      minusBtn.disabled = qty <= moq;
+
+      if (showMoqWarning) {
+        note.textContent = "Minimum order is " + moq + " " + noun + " (" + fmt(moq * unit) + ").";
+        note.classList.add("text-gold-leaf");
+        note.classList.remove("text-body-grey/70");
+      }
+    }
+
+    function setQty(next, warn) {
+      const clamped = Math.max(moq, Math.floor(Number(next) || moq));
+      const hitFloor = Number(next) < moq;
+      qty = clamped;
+      render(warn && hitFloor);
+    }
+
+    minusBtn.addEventListener("click", function () { setQty(qty - 1, true); });
+    plusBtn.addEventListener("click", function () { setQty(qty + 1, false); });
+
+    // Typing: allow a temporarily empty field, clamp on blur so the user can
+    // clear the box and type "20" without it fighting them on every keystroke.
+    input.addEventListener("input", function () {
+      const raw = input.value;
+      if (raw === "") return;
+      const n = Math.floor(Number(raw));
+      if (!isFinite(n)) return;
+      qty = Math.max(moq, n);
+      const total = qty * unit;
+      totalEl.textContent = fmt(total);
+      btnTotal.textContent = fmt(total);
+      minusBtn.disabled = qty <= moq;
+    });
+
+    input.addEventListener("blur", function () {
+      const n = Math.floor(Number(input.value));
+      setQty(isFinite(n) && n > 0 ? n : moq, true);
+    });
+
+    donateBtn.addEventListener("click", function () {
+      const total = qty * unit;
+      window.OSA_PAY.checkout(
+        total,
+        label + " — " + qty + " " + noun,
+        { sku: sku, quantity: qty, unitPrice: unit }
+      );
+    });
+
+    render(false);
+  });
+
+  /* ───── Open donation form ────────────────────────────────────────────── */
+
+  const form     = document.getElementById("open-donation-form");
+  const amountEl = document.getElementById("donation-amount");
+  const errEl    = document.getElementById("amount-error");
+  const labelEl  = document.getElementById("open-donate-label");
+  const chips    = document.querySelectorAll(".amount-chip");
+
+  function syncLabel() {
+    const v = Number(amountEl.value);
+    labelEl.textContent = isFinite(v) && v > 0 ? "Donate " + fmt(v) + " Now" : "Donate Now";
+    chips.forEach(function (c) {
+      c.classList.toggle("active", Number(c.dataset.amount) === v);
+    });
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      amountEl.value = chip.dataset.amount;
+      errEl.classList.add("hidden");
+      syncLabel();
+    });
+  });
+
+  amountEl.addEventListener("input", function () {
+    errEl.classList.add("hidden");
+    syncLabel();
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const amount = Number(amountEl.value);
+    if (!isFinite(amount) || amount < 1) {
+      errEl.classList.remove("hidden");
+      amountEl.focus();
+      return;
+    }
+    window.OSA_PAY.checkout(amount, "General Donation — Occult Science Academya Trust", {
+      sku: "DONATE-OPEN",
+      name: (document.getElementById("donor-name").value || "").trim(),
+      email: (document.getElementById("donor-email").value || "").trim()
+    });
+  });
+
+  syncLabel();
+
+  /* ───── Mobile menu ───────────────────────────────────────────────────── */
+
+  const toggle = document.getElementById("menu-toggle");
+  const menu   = document.getElementById("mobile-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", function () {
+      const open = !menu.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    menu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        menu.classList.add("hidden");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  /* ───── Scroll reveal + nav progress ──────────────────────────────────── */
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+
+  const revObserver = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+  document.querySelectorAll(".reveal").forEach(function (el) { revObserver.observe(el); });
+
+  const navProgress = document.getElementById("nav-progress");
+  let ticking = false;
+  function onScroll() {
+    const y = window.scrollY;
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    if (navProgress) navProgress.style.transform = "scaleX(" + (h > 0 ? y / h : 0) + ")";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

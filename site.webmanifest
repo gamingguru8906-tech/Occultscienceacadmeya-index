@@ -1,0 +1,19 @@
+{
+  "name": "Occult Science Academya",
+  "short_name": "Occult Academya",
+  "description": "A registered charitable trust offering personal Vedic astrology guidance, gemstone remedies and weekly food and education drives.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F9F6F0",
+  "theme_color": "#0F4C3A",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -9,6 +9,8 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.occultscienceacademy.com/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0F4C3A">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.occultscienceacademy.com/">
@@ -254,6 +256,8 @@
 }
 </script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Razorpay Checkout SDK — powers every Buy / Book / Donate button -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -510,6 +514,72 @@
     .modal-panel { transform: translateY(24px) scale(0.98); opacity: 0; transition: transform 0.4s var(--ease), opacity 0.4s var(--ease); }
     .modal-backdrop.show .modal-panel { transform: none; opacity: 1; }
 
+    /* ---- Quantity stepper (donation MOQ + book quantity) ---- */
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .qty-input { -moz-appearance: textfield; appearance: textfield; }
+    .qty-btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 2.5rem; height: 2.5rem; border-radius: 9999px;
+        border: 1px solid rgba(212,175,55,0.45); color: #0F4C3A; background: rgba(255,255,255,0.6);
+        transition: background .25s var(--ease), color .25s var(--ease), opacity .25s var(--ease);
+        user-select: none;
+    }
+    .qty-btn:hover:not(:disabled) { background: #0F4C3A; color: #D4AF37; }
+    .qty-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+    /* ---- Gems & bracelets catalog ---- */
+    /* Panel is tinted with the actual gemstone colour, so a card still reads
+       as "that stone" even before the photo loads — or if it never does. */
+    .gem-panel {
+        background:
+            radial-gradient(120% 100% at 25% 12%, color-mix(in srgb, var(--stone) 65%, #F5E6A8) 0%, transparent 62%),
+            linear-gradient(158deg, var(--stone) 0%, color-mix(in srgb, var(--stone) 55%, #0F4C3A) 100%);
+    }
+    @supports not (color: color-mix(in srgb, red 50%, blue)) {
+        .gem-panel { background: linear-gradient(158deg, var(--stone) 0%, #0F4C3A 140%); }
+    }
+    .gem-panel .img-fallback { color: rgba(255,255,255,0.92); text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
+    .gem-glyph { font-size: 2.75rem; line-height: 1; }
+    .gem-off {
+        position: absolute; top: 0; right: 0; z-index: 2;
+        background: #D4AF37; color: #0F4C3A;
+        font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+        padding: .5rem 1rem; border-bottom-left-radius: 1rem;
+    }
+    .gem-card { text-decoration: none; }
+    .gem-cta { transition: gap .3s var(--ease), color .3s var(--ease); }
+    .gem-card:hover .gem-cta { gap: .6rem; color: #B8860B; }
+    /* Chips double as collection tabs */
+    .chip {
+        border: 1px solid rgba(212,175,55,0.45); color: #0F4C3A; background: rgba(255,255,255,0.55);
+        transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+    }
+    .chip:hover { border-color: #D4AF37; background: rgba(212,175,55,0.14); }
+    .chip.active { background: #0F4C3A; color: #D4AF37; border-color: #0F4C3A; }
+
+    /* ---- Trust / transparency pillars ---- */
+    .pillar-num {
+        width: 2.75rem; height: 2.75rem; border-radius: 9999px;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: radial-gradient(circle at 30% 30%, #F5E6A8, #D4AF37 60%, #B8860B);
+        color: #0F4C3A; font-weight: 700;
+    }
+    /* Honesty-code list: gold cross markers, reads as "we will never" */
+    .never-list li { position: relative; padding-left: 2rem; }
+    .never-list li::before {
+        content: "✕"; position: absolute; left: 0; top: 0.05em;
+        color: #D4AF37; font-weight: 700;
+    }
+
+    /* ---- Toast (Razorpay demo-mode + payment feedback) ---- */
+    #toast {
+        position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 140%);
+        z-index: 300; max-width: min(92vw, 30rem);
+        transition: transform .45s var(--ease), opacity .45s var(--ease); opacity: 0;
+    }
+    #toast.show { transform: translate(-50%, 0); opacity: 1; }
+
     /* ---- Reduced motion: kill everything ---- */
     @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -737,6 +807,8 @@
       <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="#how">How It Works</a>
       <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="#services">Services</a>
       <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="#reports">Reports</a>
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="#gems">Gems</a>
+      <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="/donations.html">Donate</a>
       <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="/blog.html">Blogs</a>
       <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="#testimonials">Stories</a>
       <a class="text-on-surface-variant hover:text-deep-teal transition-colors" href="#faq">FAQ</a>
@@ -754,6 +826,10 @@
     <a class="text-on-surface-variant" href="#how">How It Works</a>
     <a class="text-on-surface-variant" href="#services">Services</a>
     <a class="text-on-surface-variant" href="#reports">Reports</a>
+    <a class="text-on-surface-variant" href="#gems">Gems</a>
+    <a class="text-on-surface-variant" href="#consultations">Consultations</a>
+    <a class="text-on-surface-variant" href="/donations.html">Donate</a>
+    <a class="text-on-surface-variant" href="#transparency">Transparency</a>
     <a class="text-on-surface-variant" href="/blog.html">Blogs</a>
     <a class="text-on-surface-variant" href="#testimonials">Stories</a>
     <a class="text-on-surface-variant" href="#faq">FAQ</a>
@@ -1160,6 +1236,437 @@
   </div>
 </section>
 
+<!-- ============================================================================
+     GEMS & BRACELETS CATALOG
+     ============================================================================
+     Rendered natively on this page so it always displays, then every card links
+     OUT to veshannastro.co.in, where the product page, cart and Razorpay
+     checkout all live. This trust never handles bracelet money.
+
+     ▸ TO EDIT PRODUCTS: everything lives in the VESH_CATALOG array in the
+       script directly below this section. Change a price or add a bracelet
+       there and the grid updates — no HTML to touch.
+
+     ▸ IMAGES are hotlinked from veshannastro.co.in/images/bracelets/. If an
+       image is missing the card falls back to a gemstone-coloured panel, so a
+       card never renders broken.
+     ============================================================================ -->
+<section id="gems" class="py-section-gap px-margin-mobile md:px-margin-desktop relative z-10">
+  <div class="max-w-container-max mx-auto">
+
+    <div class="reveal text-center mb-10">
+      <span class="eyebrow font-label-sm text-label-sm text-gold-leaf uppercase tracking-[0.2em]">Energised &amp; Chart-Matched</span>
+      <h2 class="font-headline-lg text-headline-lg mt-3 mb-4 text-deep-teal">Gems &amp; Bracelets</h2>
+      <p class="reveal-words font-body-md text-body-md text-body-grey max-w-2xl mx-auto">Prepared to order by our sister store, Veshannastro, each bracelet ships with a wearing ritual, a mantra and 21 days of follow-up guidance. We suggest a stone only when your chart genuinely calls for one — never as a cure for a fear we invented.</p>
+    </div>
+
+    <!-- Collection tabs -->
+    <div class="reveal flex flex-wrap justify-center gap-3 mb-10" role="tablist" aria-label="Bracelet collections">
+      <button type="button" class="gem-tab chip active rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-collection="crystal" role="tab" aria-selected="true">Ritual Kits <span class="opacity-60">12</span></button>
+      <button type="button" class="gem-tab chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-collection="premium" role="tab" aria-selected="false">Premium <span class="opacity-60">6</span></button>
+      <button type="button" class="gem-tab chip rounded-full px-6 py-3 font-label-lg text-label-lg uppercase tracking-widest" data-collection="zodiac" role="tab" aria-selected="false">Zodiac <span class="opacity-60">12</span></button>
+    </div>
+
+    <!-- Product grid (populated by the script below) -->
+    <div id="gem-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter"></div>
+
+    <div class="reveal text-center mt-16">
+      <a href="https://www.veshannastro.co.in/bracelet-fusion.html" target="_blank" rel="noopener"
+         class="magnetic btn-shine inline-flex items-center gap-2 bg-gold-leaf text-white px-10 py-4 font-label-lg text-label-lg uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity shadow-lg">
+        Browse the full shop on Veshannastro
+        <span class="material-symbols-outlined">open_in_new</span>
+      </a>
+      <p class="font-label-sm text-label-sm text-body-grey/70 mt-4">Free India shipping · Orders, delivery and payment handled by Veshannastro</p>
+    </div>
+
+    <p class="reveal font-body-md text-body-md text-body-grey/80 text-center mt-10 max-w-2xl mx-auto">
+      Payments for gems and bracelets go to Veshannastro, not to this trust. Nothing you spend on a bracelet is counted as a donation, and no purchase is ever required to book a reading or receive help from us.
+    </p>
+
+  </div>
+</section>
+
+<!-- ============================================================================
+     CATALOG DATA + RENDERER
+     Edit VESH_CATALOG below to change products. Prices are in rupees.
+     ============================================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  // Where the cards send people. Individual product pages exist for the
+  // VA-BR-* bracelets; the zodiac range is browsed on the collection page.
+  const VESH_BASE    = "https://www.veshannastro.co.in";
+  const VESH_PRODUCT = VESH_BASE + "/shop-product.html?sku=";
+  const VESH_SHOP    = VESH_BASE + "/bracelet-fusion.html";
+  const VESH_IMG     = VESH_BASE + "/images/bracelets/";
+
+  const VESH_CATALOG = {
+    crystal: [
+      {sku:"VA-BR-CQ-003",name:"Clear Quartz Bracelet",mrp:1429,price:999,stones:"Clear Quartz",benefit:"Amplifies your current intention and keeps the mind clear.",colour:"#9fb0c0",img:"png"},
+      {sku:"VA-BR-BT-004",name:"Black Tourmaline Bracelet",mrp:1279,price:899,stones:"Black Tourmaline",benefit:"Energetic boundaries, nazar protection and daily stability.",colour:"#2f2f36",img:"png"},
+      {sku:"VA-BR-RJ-007",name:"Red Jasper Bracelet",mrp:1139,price:799,stones:"Red Jasper",benefit:"Grounded action, physical drive and steady courage.",colour:"#a83232",img:"png"},
+      {sku:"VA-BR-MN-012",name:"Peach Moonstone Bracelet",mrp:1139,price:799,stones:"Peach Moonstone",benefit:"Emotional transitions, calm rhythm and gentle self-acceptance.",colour:"#e8b89a",img:"png"},
+      {sku:"VA-BR-GA-010",name:"Green Aventurine Bracelet",mrp:1279,price:899,stones:"Green Aventurine",benefit:"Fresh openings, growth energy and confident progress.",colour:"#4f9e6a",img:"png"},
+      {sku:"VA-BR-CT-005",name:"Citrine Natural Bracelet",mrp:1709,price:1199,stones:"Natural Citrine",benefit:"Abundance mindset, financial confidence and opportunity.",colour:"#d9a521",img:"png"},
+      {sku:"VA-BR-TP-001",name:"Triple Protection Bracelet",mrp:1139,price:799,stones:"Tiger Eye + Black Obsidian + Hematite",benefit:"A daily shield for draining spaces and energetic exposure.",colour:"#5c4327",img:"webp"},
+      {sku:"VA-BR-AM-002",name:"Amethyst Bracelet",mrp:1429,price:999,stones:"Amethyst",benefit:"Calm thinking, study energy, stress relief and intuition.",colour:"#7e57c2",img:"png"},
+      {sku:"VA-BR-YA-006",name:"Yellow Aventurine Bracelet",mrp:1139,price:799,stones:"Yellow Aventurine",benefit:"Optimism, self-belief and solar confidence.",colour:"#e0b73a",img:"png"},
+      {sku:"VA-BR-TE-008",name:"Tiger Eye Bracelet",mrp:1139,price:799,stones:"Tiger Eye",benefit:"Focus, practical success and confident public dealing.",colour:"#b07d2a",img:"png"},
+      {sku:"VA-BR-RQ-009",name:"Rose Quartz Bracelet",mrp:1279,price:899,stones:"Rose Quartz",benefit:"Heart softness, self-love and relationship harmony.",colour:"#e3a0b4",img:"png"},
+      {sku:"VA-BR-LL-011",name:"Lapis Lazuli Bracelet",mrp:1279,price:899,stones:"Lapis Lazuli",benefit:"Communication, inner truth and clear self-awareness.",colour:"#2b4a8c",img:"png"}
+    ],
+    premium: [
+      {sku:"VA-BR-LK-016",name:"Lakshmi's Loom — Dhan Yog",mrp:1859,price:1299,stones:"Citrine + Pyrite + Green Aventurine",benefit:"Abundance, money flow and business confidence.",colour:"#c9a24a",img:"png"},
+      {sku:"VA-BR-RE-017",name:"The Rose Embrace — Love",mrp:1859,price:1299,stones:"Rose Quartz + Rhodonite",benefit:"Love, softer connection and heart healing.",colour:"#e08aa0",img:"png"},
+      {sku:"VA-BR-PY-018",name:"Sunforge Pyrite Bracelet",mrp:1429,price:999,stones:"Pyrite",benefit:"Wealth drive, confidence, willpower and bold action.",colour:"#c79a3a",img:"png"},
+      {sku:"VA-BR-WM-015",name:"White Moonstone Bracelet",mrp:1999,price:1399,stones:"White Moonstone",benefit:"Emotional steadiness, peace and intuitive softness.",colour:"#d7deec",img:"png"},
+      {sku:"VA-BR-7C-013",name:"7 Chakra Bracelet",mrp:1569,price:1099,stones:"Seven chakra gemstones",benefit:"A full-spectrum starter kit for daily energetic balance.",colour:"#8a5a9e",img:"png"},
+      {sku:"VA-BR-IO-014",name:"Iolite Bracelet (Neeli)",mrp:2279,price:1599,stones:"Iolite — Saturn substitute",benefit:"Saturn-style focus, guidance and inner clarity.",colour:"#4a5a9e",img:"png"}
+    ],
+    zodiac: [
+      {sku:"ZO-001",name:"Aries Bracelet",mrp:1249,price:949,stones:"Red Coral",benefit:"Mars energy — courage, drive, edge.",colour:"#a83232",glyph:"♈"},
+      {sku:"ZO-002",name:"Taurus Bracelet",mrp:1349,price:999,stones:"Emerald",benefit:"Venus energy — wealth, beauty, stability.",colour:"#4f9e6a",glyph:"♉"},
+      {sku:"ZO-003",name:"Gemini Bracelet",mrp:1199,price:879,stones:"Agate",benefit:"Mercury energy — communication, intellect.",colour:"#9fb0c0",glyph:"♊"},
+      {sku:"ZO-004",name:"Cancer Bracelet",mrp:1299,price:949,stones:"Pearl",benefit:"Moon energy — intuition, emotional security.",colour:"#d7deec",glyph:"♋"},
+      {sku:"ZO-005",name:"Leo Bracelet",mrp:1399,price:999,stones:"Ruby / Garnet",benefit:"Sun energy — leadership, confidence, vitality.",colour:"#d9a521",glyph:"♌"},
+      {sku:"ZO-006",name:"Virgo Bracelet",mrp:1199,price:879,stones:"Blue Sapphire",benefit:"Mercury energy — precision, clarity, health.",colour:"#2b4a8c",glyph:"♍"},
+      {sku:"ZO-007",name:"Libra Bracelet",mrp:1299,price:949,stones:"Opal / Tourmaline",benefit:"Venus energy — balance, harmony, love.",colour:"#e8b89a",glyph:"♎"},
+      {sku:"ZO-008",name:"Scorpio Bracelet",mrp:1499,price:1099,stones:"Black Obsidian",benefit:"Mars energy — depth, power, protection.",colour:"#2f2f36",glyph:"♏"},
+      {sku:"ZO-009",name:"Sagittarius Bracelet",mrp:1299,price:949,stones:"Turquoise",benefit:"Jupiter energy — wisdom, expansion, luck.",colour:"#4a9eac",glyph:"♐"},
+      {sku:"ZO-010",name:"Capricorn Bracelet",mrp:1349,price:999,stones:"Garnet",benefit:"Saturn energy — discipline, ambition, success.",colour:"#a83232",glyph:"♑"},
+      {sku:"ZO-011",name:"Aquarius Bracelet",mrp:1299,price:949,stones:"Amethyst",benefit:"Innovation, intuition and freedom.",colour:"#7e57c2",glyph:"♒"},
+      {sku:"ZO-012",name:"Pisces Bracelet",mrp:1199,price:879,stones:"Aquamarine",benefit:"Compassion, creativity and calm.",colour:"#7ab8d0",glyph:"♓"}
+    ]
+  };
+
+  const grid = document.getElementById("gem-grid");
+  const tabs = document.querySelectorAll(".gem-tab");
+  if (!grid) return;
+
+  const inr  = n => "₹" + Number(n).toLocaleString("en-IN");
+  const esc  = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+  // VA-BR-* bracelets have their own product page; zodiac opens the shop.
+  const linkFor = p => /^VA-BR-/.test(p.sku) ? VESH_PRODUCT + encodeURIComponent(p.sku) : VESH_SHOP;
+
+  function cardHTML(p, i) {
+    const off = Math.round((1 - p.price / p.mrp) * 100);
+    const media = p.img
+      ? '<img src="' + VESH_IMG + p.sku + "." + p.img + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async"'
+        + ' onload="this.classList.add(\'loaded\')" onerror="this.remove()">'
+      : '';
+    const glyph = p.glyph
+      ? '<span class="gem-glyph">' + p.glyph + '</span>'
+      : '<span class="material-symbols-outlined text-4xl">diamond</span>';
+
+    return ''
+      + '<a href="' + linkFor(p) + '" target="_blank" rel="noopener"'
+      + '   class="gem-card reveal glass-card deckled-edge rounded-[2.5rem] overflow-hidden group border border-gold-leaf/20 shadow-md flex flex-col transition-all hover:shadow-xl"'
+      + '   style="transition-delay:' + (i % 4) * 0.06 + 's"'
+      + '   aria-label="' + esc(p.name) + ' — ' + inr(p.price) + ', opens on Veshannastro">'
+      +   '<div class="img-panel gem-panel h-52 w-full relative" style="--stone:' + p.colour + '">'
+      +     '<div class="img-fallback">' + glyph
+      +       '<span class="font-label-sm text-label-sm uppercase tracking-widest">' + esc(p.stones) + '</span>'
+      +     '</div>' + media
+      +     (off > 0 ? '<span class="gem-off">' + off + '% off</span>' : '')
+      +   '</div>'
+      +   '<div class="p-6 flex flex-col flex-1">'
+      +     '<h3 class="font-headline-sm text-headline-sm text-deep-teal leading-tight mb-1">' + esc(p.name) + '</h3>'
+      +     '<p class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf mb-3">' + esc(p.stones) + '</p>'
+      +     '<p class="font-body-md text-body-md text-body-grey flex-1">' + esc(p.benefit) + '</p>'
+      +     '<div class="flex items-baseline gap-2 mt-5">'
+      +       '<span class="font-headline-sm text-headline-sm text-deep-teal">' + inr(p.price) + '</span>'
+      +       '<span class="font-body-md text-body-md text-body-grey/60 line-through">' + inr(p.mrp) + '</span>'
+      +     '</div>'
+      +     '<span class="gem-cta font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf mt-4 inline-flex items-center gap-1">'
+      +       'View on Veshannastro <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>'
+      +     '</span>'
+      +   '</div>'
+      + '</a>';
+  }
+
+  function render(collection) {
+    grid.innerHTML = VESH_CATALOG[collection].map(cardHTML).join("");
+    // Cards are injected after the page-wide reveal observer has already run,
+    // so mark them visible directly.
+    requestAnimationFrame(function () {
+      grid.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in"); });
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      tabs.forEach(function (t) {
+        t.classList.toggle("active", t === tab);
+        t.setAttribute("aria-selected", String(t === tab));
+      });
+      render(tab.dataset.collection);
+    });
+  });
+
+  render("crystal");
+})();
+</script>
+
+<!-- ============================================================
+     PERSONAL CALL / CONSULTATIONS — booking cards
+     ============================================================ -->
+<section id="consultations" class="py-section-gap px-margin-mobile md:px-margin-desktop relative z-10">
+  <div class="max-w-container-max mx-auto">
+    <div class="reveal text-center mb-16">
+      <span class="eyebrow font-label-sm text-label-sm text-gold-leaf uppercase tracking-[0.2em]">One to One</span>
+      <h2 class="font-headline-lg text-headline-lg mt-3 mb-4 text-deep-teal">Book a Personal Call</h2>
+      <p class="reveal-words font-body-md text-body-md text-body-grey max-w-2xl mx-auto">A real human energy reader, on the phone, for as long as your slot runs. You will never be handed to a bot, upsold a gemstone mid-call, or told something frightening to keep you booking.</p>
+    </div>
+
+    <div class="offerings-grid grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+      <!-- Tier 1 -->
+      <article class="reveal glass-card p-8 border border-gold-leaf/20 flex flex-col">
+        <div class="mb-6">
+          <span class="font-label-sm text-label-sm text-deep-teal uppercase tracking-widest">Reserve your slot</span>
+          <h3 class="font-headline-md text-headline-md text-deep-teal mt-2">The ₹10 Booking Ticket</h3>
+        </div>
+        <div class="mb-6">
+          <span class="font-display-lg text-headline-lg text-deep-teal">₹10</span>
+          <span class="font-body-md text-body-md text-body-grey ml-1">to hold your place</span>
+        </div>
+        <ul class="font-body-md text-body-md text-body-grey space-y-3 flex-1 mb-8">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>A real reader calls you within 2 days</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Pay only what the guidance was worth, afterwards</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>No obligation if it wasn't useful</span></li>
+        </ul>
+        <button type="button" class="magnetic btn-shine w-full border border-deep-teal text-deep-teal px-6 py-4 font-label-lg text-label-lg uppercase tracking-widest hover:bg-deep-teal hover:text-canvas-beige transition-colors"
+                data-buy data-amount="10" data-purpose="Personal Call — ₹10 Booking Ticket" data-sku="CALL-TICKET-10">
+          Book Call via Razorpay
+        </button>
+      </article>
+
+      <!-- Tier 2 — featured -->
+      <article class="reveal glass-card p-8 border border-gold-leaf/30 bg-canvas-beige/40 flex flex-col relative overflow-hidden" style="transition-delay:.1s">
+        <div class="absolute top-0 right-0 bg-gold-leaf text-canvas-beige font-label-sm text-label-sm px-4 py-2 rounded-bl-3xl uppercase tracking-widest">Most Chosen</div>
+        <div class="mb-6 mt-4">
+          <span class="font-label-sm text-label-sm text-deep-teal uppercase tracking-widest">45 minutes</span>
+          <h3 class="font-headline-md text-headline-md text-deep-teal mt-2">In-Depth Chart Reading</h3>
+        </div>
+        <div class="mb-6">
+          <span class="font-display-lg text-headline-lg text-deep-teal">₹2,100</span>
+          <span class="font-body-md text-body-md text-body-grey ml-1">fixed, all inclusive</span>
+        </div>
+        <ul class="font-body-md text-body-md text-body-grey space-y-3 flex-1 mb-8">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Full kundli walkthrough on a scheduled call</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Written summary emailed within 48 hours</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>One follow-up question, free, for 30 days</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Full refund if we can't help you</span></li>
+        </ul>
+        <button type="button" class="magnetic btn-shine w-full bg-deep-teal text-canvas-beige px-6 py-4 font-label-lg text-label-lg uppercase tracking-widest shadow-md hover:shadow-lg"
+                data-buy data-amount="2100" data-purpose="Personal Call — In-Depth Chart Reading (45 min)" data-sku="CALL-DEEP-45">
+          Book Call via Razorpay
+        </button>
+      </article>
+
+      <!-- Tier 3 -->
+      <article class="reveal glass-card p-8 border border-gold-leaf/20 flex flex-col" style="transition-delay:.2s">
+        <div class="mb-6">
+          <span class="font-label-sm text-label-sm text-deep-teal uppercase tracking-widest">90 minutes</span>
+          <h3 class="font-headline-md text-headline-md text-deep-teal mt-2">Year-Ahead Guidance</h3>
+        </div>
+        <div class="mb-6">
+          <span class="font-display-lg text-headline-lg text-deep-teal">₹4,500</span>
+          <span class="font-body-md text-body-md text-body-grey ml-1">fixed, all inclusive</span>
+        </div>
+        <ul class="font-body-md text-body-md text-body-grey space-y-3 flex-1 mb-8">
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Month-by-month transit map for the next 12 months</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Energy reading and Reiki session included</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Two follow-up calls across the year</span></li>
+          <li class="flex gap-3"><span class="material-symbols-outlined text-gold-leaf text-lg">check</span><span>Full refund if we can't help you</span></li>
+        </ul>
+        <button type="button" class="magnetic btn-shine w-full border border-deep-teal text-deep-teal px-6 py-4 font-label-lg text-label-lg uppercase tracking-widest hover:bg-deep-teal hover:text-canvas-beige transition-colors"
+                data-buy data-amount="4500" data-purpose="Personal Call — Year-Ahead Guidance (90 min)" data-sku="CALL-YEAR-90">
+          Book Call via Razorpay
+        </button>
+      </article>
+
+    </div>
+
+    <div class="reveal glass-card mt-12 p-8 md:p-10 border border-gold-leaf/20 flex flex-col md:flex-row gap-6 items-start md:items-center bg-white/50 backdrop-blur-md">
+      <span class="material-symbols-outlined text-gold-leaf text-4xl shrink-0">handshake</span>
+      <div class="flex-1">
+        <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-2">If we can't help you, we say so — and refund you</h3>
+        <p class="font-body-md text-body-md text-body-grey">Some questions are not astrological. If your situation needs a doctor, a lawyer, or a counsellor, your reader will tell you that plainly and return your money in full. We would rather lose the fee than take it under false pretences.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRANSPARENCY GUARANTEE
+     TODO: replace every "PLACEHOLDER" registration value below with
+     your real trust deed / 80G / PAN details before publishing.
+     Do not publish this section with placeholder numbers in place.
+     ============================================================ -->
+<section id="transparency" class="py-section-gap px-margin-mobile md:px-margin-desktop relative z-10">
+  <div class="max-w-container-max mx-auto">
+
+    <div class="reveal text-center mb-16">
+      <span class="eyebrow font-label-sm text-label-sm text-deep-teal uppercase tracking-[0.2em] opacity-70">Our Promise</span>
+      <h2 class="font-headline-lg text-headline-lg text-deep-teal mt-3 mb-4">The Transparency Guarantee</h2>
+      <p class="reveal-words font-body-md text-body-md text-body-grey max-w-2xl mx-auto">Spirituality attracts more than its share of people willing to take advantage. We built this trust to be the opposite of that. Here is exactly how your money is handled — check it, question it, and hold us to it.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+
+      <div class="reveal glass-card p-8 md:p-10 border border-gold-leaf/20">
+        <div class="font-headline-sm text-gold-leaf mb-5 text-2xl">01</div>
+        <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-3">A registered, accountable trust</h3>
+        <p class="font-body-md text-body-md text-body-grey">Occult Science Academya is a charitable trust registered under the Indian Trusts Act. Our registration certificate, trust deed and trustee list are published on this page. Verify us before you give us a single rupee — we would rather you did.</p>
+      </div>
+
+      <div class="reveal glass-card p-8 md:p-10 border border-gold-leaf/20" style="transition-delay:.1s">
+        <div class="font-headline-sm text-gold-leaf mb-5 text-2xl">02</div>
+        <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-3">100% transparent, quarter by quarter</h3>
+        <p class="font-body-md text-body-md text-body-grey">Every quarter we publish a public ledger: what came in, what it bought, how many people it reached, and the receipts behind it. Photographs from each drive are dated. Nothing is summarised into a vague "impact figure".</p>
+      </div>
+
+      <div class="reveal glass-card p-8 md:p-10 border border-gold-leaf/20" style="transition-delay:.2s">
+        <div class="font-headline-sm text-gold-leaf mb-5 text-2xl">03</div>
+        <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-3">Your donation goes to the cause, not the overhead</h3>
+        <p class="font-body-md text-body-md text-body-grey">Our trustees personally absorb administration, website and staffing costs out of their own consultation income. When you fund a khichdi meal, that money buys khichdi. The only deduction is the payment gateway fee, which Razorpay charges and we show you openly.</p>
+      </div>
+
+      <div class="reveal glass-card p-8 md:p-10 border border-gold-leaf/20" style="transition-delay:.3s">
+        <div class="font-headline-sm text-gold-leaf mb-5 text-2xl">04</div>
+        <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-3">Zero tolerance for cheating</h3>
+        <p class="font-body-md text-body-md text-body-grey">Fear-based selling is grounds for immediate removal from this academy — no warning, no second chance. That applies to every reader, teacher and volunteer who carries our name, including the founders.</p>
+      </div>
+
+    </div>
+
+    <!-- Honesty code -->
+    <div class="reveal glass-card p-8 md:p-12 border border-gold-leaf/20 bg-white/50 backdrop-blur-xl grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="eyebrow font-label-sm text-label-sm text-deep-teal uppercase tracking-[0.2em] opacity-70">The Honesty Code</span>
+        <h3 class="font-headline-md text-headline-md text-deep-teal mt-3 mb-5">What we will never do</h3>
+        <ul class="never-list font-body-md text-body-md text-body-grey space-y-4">
+          <li class="flex gap-2"><span class="text-gold-leaf mt-1">✗</span> We will never use fear to sell you a reading, a gemstone, or a donation.</li>
+          <li class="flex gap-2"><span class="text-gold-leaf mt-1">✗</span> We will never promise a guaranteed outcome from a ritual or a remedy.</li>
+          <li class="flex gap-2"><span class="text-gold-leaf mt-1">✗</span> We will never tell you a donation removes a curse or buys divine favour.</li>
+          <li class="flex gap-2"><span class="text-gold-leaf mt-1">✗</span> We will never add a charge you were not told about upfront.</li>
+          <li class="flex gap-2"><span class="text-gold-leaf mt-1">✗</span> We will never sell, rent or share your personal details with anyone.</li>
+          <li class="flex gap-2"><span class="text-gold-leaf mt-1">✗</span> We will never pressure you to give more than you comfortably can.</li>
+        </ul>
+      </div>
+      <div class="h-72 md:h-96 w-full rounded-[2.5rem] overflow-hidden shadow-xl border border-gold-leaf/20">
+        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&amp;fit=crop&amp;w=1000&amp;q=70" class="w-full h-full object-cover" alt="A person seated in quiet meditation" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- Registration details -->
+    <div class="reveal mt-16 glass-card p-8 md:p-10 border border-gold-leaf/20 bg-white/30 backdrop-blur-md">
+      <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-6">Registration &amp; verification</h3>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-body-md text-body-md">
+        <div>
+          <dt class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal opacity-70 mb-1">Trust Registration No.</dt>
+          <dd class="text-deep-teal font-medium">TODO — add your number</dd>
+        </div>
+        <div>
+          <dt class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal opacity-70 mb-1">PAN</dt>
+          <dd class="text-deep-teal font-medium">TODO — add your PAN</dd>
+        </div>
+        <div>
+          <dt class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal opacity-70 mb-1">80G Certificate</dt>
+          <dd class="text-deep-teal font-medium">TODO — add number or remove</dd>
+        </div>
+        <div>
+          <dt class="font-label-sm text-label-sm uppercase tracking-widest text-deep-teal opacity-70 mb-1">Registered Office</dt>
+          <dd class="text-deep-teal font-medium">TODO — add address</dd>
+        </div>
+      </dl>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#" class="magnetic btn-shine inline-flex items-center gap-2 border border-deep-teal text-deep-teal px-6 py-3 font-label-sm text-label-sm uppercase tracking-widest hover:bg-deep-teal hover:text-canvas-beige transition-colors">
+          <span class="material-symbols-outlined text-lg">description</span> View Trust Deed
+        </a>
+        <a href="#" class="magnetic btn-shine inline-flex items-center gap-2 border border-deep-teal text-deep-teal px-6 py-3 font-label-sm text-label-sm uppercase tracking-widest hover:bg-deep-teal hover:text-canvas-beige transition-colors">
+          <span class="material-symbols-outlined text-lg">receipt_long</span> Latest Public Ledger
+        </a>
+      </div>
+      <p class="font-label-sm text-label-sm text-body-grey/70 mt-6">Publishing note: replace the four values above and link both documents before this page goes live. An unverifiable registration claim does more damage to trust than no claim at all.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     CHARITABLE WORK — teaser leading to donations.html
+     ============================================================ -->
+<section id="our-work" class="py-section-gap px-margin-mobile md:px-margin-desktop relative z-10">
+  <div class="max-w-container-max mx-auto">
+    <div class="reveal text-center mb-16">
+      <span class="eyebrow font-label-sm text-label-sm text-deep-teal uppercase tracking-[0.2em] opacity-70">Where the Money Goes</span>
+      <h2 class="font-headline-lg text-headline-lg text-deep-teal mt-3 mb-4">Three Drives, Every Week</h2>
+      <p class="reveal-words font-body-md text-body-md text-body-grey max-w-2xl mx-auto">Study is only half of what this academy does. The other half is hot food on a Thursday, prasad on a Tuesday, and school fees for children whose families cannot cover them.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <a href="donations.html#khichdi" class="reveal glass-card overflow-hidden group border border-gold-leaf/20 block">
+        <div class="h-60 w-full relative">
+          <div class="absolute inset-0 bg-gold-leaf/20/20 flex flex-col items-center justify-center text-deep-teal">
+            <span class="material-symbols-outlined text-5xl">restaurant</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest mt-2">Thursday Khichdi</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&amp;fit=crop&amp;w=900&amp;q=70" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-700" alt="Hot meals being served to people in a queue" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0')">
+        </div>
+        <div class="p-8">
+          <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-2 group-hover:text-gold-leaf transition-colors">Thursday Khichdi Drive</h3>
+          <p class="font-body-md text-body-md text-body-grey mb-4">₹20 puts a full, hot plate in front of one hungry person. Every Thursday, without a break, since we began.</p>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf flex items-center gap-2 group-hover:translate-x-2 transition-transform">Feed someone <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+        </div>
+      </a>
+
+      <a href="donations.html#halwa" class="reveal glass-card overflow-hidden group border border-gold-leaf/20 block" style="transition-delay:.1s">
+        <div class="h-60 w-full relative">
+          <div class="absolute inset-0 bg-gold-leaf/20/20 flex flex-col items-center justify-center text-deep-teal">
+            <span class="material-symbols-outlined text-5xl">local_fire_department</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest mt-2">Tuesday Halwa</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&amp;fit=crop&amp;w=900&amp;q=70" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-700" alt="Traditional Indian sweet prepared for distribution" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0')">
+        </div>
+        <div class="p-8">
+          <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-2 group-hover:text-gold-leaf transition-colors">Tuesday Halwa Drive</h3>
+          <p class="font-body-md text-body-md text-body-grey mb-4">₹200 covers the ingredients, the cooking and the distribution of sacred halwa prasad to a family in need.</p>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf flex items-center gap-2 group-hover:translate-x-2 transition-transform">Offer prasad <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+        </div>
+      </a>
+
+      <a href="donations.html#education" class="reveal glass-card overflow-hidden group border border-gold-leaf/20 block" style="transition-delay:.2s">
+        <div class="h-60 w-full relative">
+          <div class="absolute inset-0 bg-gold-leaf/20/20 flex flex-col items-center justify-center text-deep-teal">
+            <span class="material-symbols-outlined text-5xl">school</span>
+            <span class="font-label-sm text-label-sm uppercase tracking-widest mt-2">Child Education</span>
+          </div>
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&amp;fit=crop&amp;w=900&amp;q=70" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-700" alt="Children studying together in a classroom" loading="lazy" decoding="async" onload="this.classList.remove('opacity-0')">
+        </div>
+        <div class="p-8">
+          <h3 class="font-headline-sm text-headline-sm text-deep-teal mb-2 group-hover:text-gold-leaf transition-colors">Child Education Sponsorship</h3>
+          <p class="font-body-md text-body-md text-body-grey mb-4">₹3,000 carries one child through a full academic year — fees, uniform, books and shoes.</p>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-gold-leaf flex items-center gap-2 group-hover:translate-x-2 transition-transform">Sponsor a year <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="reveal text-center mt-16">
+      <a href="donations.html" class="magnetic btn-shine inline-flex items-center gap-2 bg-deep-teal text-canvas-beige px-10 py-4 font-label-lg text-label-lg uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg">
+        Donate as per your ability
+        <span class="material-symbols-outlined">volunteer_activism</span>
+      </a>
+      <p class="font-body-md text-body-md text-body-grey mt-4">No minimum on open donations. Give ₹10 or ₹10,000 — both are recorded the same way.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Divider: services → curriculum (into teal, brown accent) -->
 <div class="relative h-24 md:h-40 w-full overflow-hidden z-10 pointer-events-none -mb-px" aria-hidden="true">
   <svg class="wave opacity-30" preserveAspectRatio="none" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="#8BA89B" d="M0,160L48,149.3C96,139,192,117,288,128C384,139,480,181,576,192C672,203,768,181,864,160C960,139,1056,117,1152,112C1248,107,1344,117,1392,122.7L1440,128L1440,320L0,320Z"/></svg>
@@ -1312,6 +1819,272 @@
     <p>© 2026 Occult Science Academya. Celestial Wisdom for the Modern Soul.</p>
   </div>
 </footer>
+
+<!-- Toast (payment + demo-mode feedback) -->
+<div id="toast" role="status" aria-live="polite">
+  <div class="glass-card border border-gold-leaf/20 rounded-[2rem] px-6 py-4 shadow-xl flex items-start gap-3 bg-white/90 backdrop-blur-md">
+    <span id="toast-icon" class="material-symbols-outlined text-gold-leaf">info</span>
+    <p id="toast-msg" class="font-body-md text-body-md text-deep-teal"></p>
+  </div>
+</div>
+
+<!-- ============================================================================
+     RAZORPAY CHECKOUT
+     ============================================================================
+     ▸ WHERE TO PUT YOUR KEYS  ────────────────────────────────────────────────
+       1. Razorpay Dashboard → Settings → API Keys → Generate Key.
+          You get TWO values: a Key ID (rzp_live_xxx) and a Key Secret.
+       2. Paste ONLY the Key ID into RAZORPAY_KEY_ID below. It is safe in
+          frontend code — it is designed to be public.
+       3. NEVER paste the Key Secret into this file or any other file that is
+          served to a browser. Anyone can read it via View Source, and it lets
+          them issue refunds and read your transactions. The Secret belongs on
+          your server only, in an environment variable.
+       4. Test first with your rzp_test_xxx key, then swap to rzp_live_xxx.
+
+     ▸ GOING FULLY LIVE (recommended, and required for real money) ────────────
+       Right now this runs in "direct charge" mode: the browser tells Razorpay
+       the amount. That is fine for testing, but a determined user can edit the
+       amount in devtools before it is sent. For production, create the order
+       server-side so the amount is fixed by YOUR server:
+         a. Deploy the backend snippet at the bottom of this block.
+         b. Put its URL in RAZORPAY_ORDER_ENDPOINT below.
+         c. Also implement the /verify endpoint — signature verification is what
+            actually proves a payment succeeded. The browser's success callback
+            alone must never be trusted to unlock a product or record a donation.
+     ============================================================================ -->
+<script>
+window.OSA_PAY = (function () {
+  "use strict";
+
+  /* ───── 1. YOUR KEYS GO HERE ─────────────────────────────────────────── */
+
+  // LIVE key — every button below charges real money. To test without taking
+  // payments, swap in your rzp_test_ key and put this one back afterwards.
+  const RAZORPAY_KEY_ID = "rzp_live_T0NA0F3UpQiZxl";
+
+  // Optional but strongly recommended. Your server endpoint that creates a
+  // Razorpay order and returns { id, amount, currency }. Leave "" to run in
+  // direct-charge mode. Example: "https://api.yoursite.com/razorpay/order"
+  const RAZORPAY_ORDER_ENDPOINT = "";
+
+  /* ───── 2. BRANDING SHOWN INSIDE THE RAZORPAY POPUP ──────────────────── */
+
+  const BRAND = {
+    name: "Occult Science Academya",
+    logo: "", // optional: absolute https:// URL to a square logo
+    themeColor: "#0F4C3A" // deep-teal, matches the site
+  };
+
+  /* ───── 3. TOAST HELPER ──────────────────────────────────────────────── */
+
+  let toastTimer = null;
+  function toast(message, icon) {
+    const el = document.getElementById("toast");
+    if (!el) { console.log("[OSA]", message); return; }
+    document.getElementById("toast-msg").textContent = message;
+    document.getElementById("toast-icon").textContent = icon || "info";
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 6000);
+  }
+
+  const keyIsPlaceholder = function () {
+    return !RAZORPAY_KEY_ID || RAZORPAY_KEY_ID.indexOf("REPLACE_WITH") !== -1;
+  };
+
+  const formatINR = function (n) {
+    return "₹" + Number(n).toLocaleString("en-IN");
+  };
+
+  /* ───── 4. THE MAIN CHECKOUT FUNCTION ────────────────────────────────── */
+  /**
+   * handleRazorpayCheckout(amount, purpose, meta)
+   * @param {number} amount  Amount in RUPEES (not paise). e.g. 499
+   * @param {string} purpose Human-readable line shown in the Razorpay popup
+   *                         and stored in notes. e.g. "Personal Call — Year-Ahead Guidance"
+   * @param {object} meta    Optional extras: { sku, quantity, unitPrice, name,
+   *                         email, contact }
+   */
+  async function handleRazorpayCheckout(amount, purpose, meta) {
+    meta = meta || {};
+    const rupees = Number(amount);
+
+    if (!isFinite(rupees) || rupees < 1) {
+      toast("Please enter a valid amount of ₹1 or more.", "error");
+      return;
+    }
+
+    // Demo mode — lets you click through the whole site before adding keys.
+    if (keyIsPlaceholder()) {
+      console.info("[OSA demo] would charge", formatINR(rupees), "for:", purpose, meta);
+      toast("Demo mode: " + formatINR(rupees) + " for " + purpose + ". Add your Razorpay Key ID to take real payments.", "science");
+      return;
+    }
+
+    if (typeof window.Razorpay === "undefined") {
+      toast("Payment library did not load. Check your connection and retry.", "wifi_off");
+      return;
+    }
+
+    const amountPaise = Math.round(rupees * 100); // Razorpay always works in paise
+
+    // If a backend is configured, let IT decide the amount (tamper-proof).
+    let order = null;
+    if (RAZORPAY_ORDER_ENDPOINT) {
+      try {
+        const res = await fetch(RAZORPAY_ORDER_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: amountPaise,
+            currency: "INR",
+            purpose: purpose,
+            sku: meta.sku || null,
+            quantity: meta.quantity || 1
+          })
+        });
+        if (!res.ok) throw new Error("Order endpoint returned " + res.status);
+        order = await res.json();
+      } catch (err) {
+        console.error("[OSA] order creation failed:", err);
+        toast("We could not start the payment just now. Please try again in a moment.", "error");
+        return;
+      }
+    }
+
+    const options = {
+      key: RAZORPAY_KEY_ID,
+      amount: order ? order.amount : amountPaise,
+      currency: "INR",
+      name: BRAND.name,
+      description: purpose,
+      image: BRAND.logo || undefined,
+      order_id: order ? order.id : undefined,
+      prefill: {
+        name: meta.name || "",
+        email: meta.email || "",
+        contact: meta.contact || ""
+      },
+      notes: {
+        purpose: purpose,
+        sku: meta.sku || "",
+        quantity: String(meta.quantity || 1),
+        unit_price: String(meta.unitPrice || rupees)
+      },
+      theme: { color: BRAND.themeColor },
+      modal: {
+        ondismiss: function () {
+          toast("Payment cancelled — nothing was charged.", "info");
+        }
+      },
+      handler: function (response) {
+        // ⚠️ This fires in the BROWSER and is not proof of payment on its own.
+        // Send these three values to your server and verify the signature there
+        // before you ship a book, confirm a call, or record a donation.
+        console.log("[OSA] payment response:", response);
+
+        if (RAZORPAY_ORDER_ENDPOINT) {
+          fetch(RAZORPAY_ORDER_ENDPOINT.replace(/\/order$/, "/verify"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature
+            })
+          }).catch(function (e) { console.error("[OSA] verify call failed:", e); });
+        }
+
+        toast("Thank you. Payment ID " + response.razorpay_payment_id + " — a receipt is on its way to your email.", "check_circle");
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      console.error("[OSA] payment failed:", response.error);
+      toast("Payment failed: " + (response.error && response.error.description ? response.error.description : "please try another method."), "error");
+    });
+    rzp.open();
+  }
+
+  /* ───── 5. WIRE UP EVERY [data-buy] BUTTON ON THE PAGE ───────────────── */
+  // Any button with data-buy data-amount="499" data-purpose="..." just works.
+
+  document.addEventListener("click", function (e) {
+    const btn = e.target.closest("[data-buy]");
+    if (!btn) return;
+    e.preventDefault();
+    handleRazorpayCheckout(
+      btn.dataset.amount,
+      btn.dataset.purpose || "Occult Science Academya",
+      { sku: btn.dataset.sku, quantity: btn.dataset.quantity || 1 }
+    );
+  });
+
+  return { checkout: handleRazorpayCheckout, toast: toast, formatINR: formatINR };
+})();
+</script>
+
+<!--
+  ────────────────────────────────────────────────────────────────────────────
+  BACKEND SNIPPET (Node + Express). Deploy this separately, then set
+  RAZORPAY_ORDER_ENDPOINT above to its /order URL. Requires: npm i express razorpay cors
+
+  const express = require("express");
+  const crypto  = require("crypto");
+  const Razorpay = require("razorpay");
+  const app = express();
+  app.use(express.json());
+
+  const rzp = new Razorpay({
+    key_id:     process.env.RAZORPAY_KEY_ID,      // rzp_live_xxx
+    key_secret: process.env.RAZORPAY_KEY_SECRET   // ← Secret lives ONLY here
+  });
+
+  // Server-side price list. The browser cannot lie about prices because the
+  // server recomputes the amount from the SKU and quantity itself.
+  const PRICES = {
+    "CALL-TICKET-10": 10, "CALL-DEEP-45": 2100, "CALL-YEAR-90": 4500,
+    "DONATE-KHICHDI": 20, "DONATE-HALWA": 200, "DONATE-EDUCATION": 3000
+    // Gems & bracelets are sold on veshannastro, so they need no SKU here.
+  };
+  const MOQ = { "DONATE-KHICHDI": 5, "DONATE-HALWA": 5 };
+
+  app.post("/razorpay/order", async (req, res) => {
+    try {
+      const { sku, quantity = 1, amount, purpose } = req.body;
+      let paise;
+      if (sku && PRICES[sku]) {
+        const qty = Math.max(Number(quantity) || 1, MOQ[sku] || 1);
+        paise = PRICES[sku] * qty * 100;
+      } else {
+        paise = Math.round(Number(amount)); // open donation, already in paise
+        if (!Number.isFinite(paise) || paise < 100) return res.status(400).json({ error: "bad amount" });
+      }
+      const order = await rzp.orders.create({
+        amount: paise, currency: "INR",
+        receipt: "osa_" + Date.now(),
+        notes: { purpose: purpose || "", sku: sku || "" }
+      });
+      res.json(order);
+    } catch (e) { console.error(e); res.status(500).json({ error: "order failed" }); }
+  });
+
+  app.post("/razorpay/verify", (req, res) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const expected = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .update(razorpay_order_id + "|" + razorpay_payment_id)
+      .digest("hex");
+    if (expected !== razorpay_signature) return res.status(400).json({ ok: false });
+    // ✅ Genuine payment. Record the donation / dispatch the book here.
+    res.json({ ok: true });
+  });
+
+  app.listen(3000);
+  ────────────────────────────────────────────────────────────────────────────
+-->
 
 <!-- MODAL -->
 <div id="modal" class="modal-backdrop fixed inset-0 z-[200] hidden items-center justify-center bg-deep-teal/60 backdrop-blur-sm px-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -1678,6 +2451,103 @@
   }
 
   update();
+})();
+</script>
+<script>
+/* ============================================================================
+   SITE GLUE — runs unconditionally.
+   The animation script above bails out early for visitors who have
+   "reduce motion" switched on, which previously also disabled the modal,
+   the mobile menu and the FAQ. This block keeps those working for everyone.
+   ============================================================================ */
+(function () {
+  "use strict";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Capture booking details, then hand off to Razorpay ---- */
+  const form = document.getElementById("app-form");
+  const payBtn = document.getElementById("modal-pay-btn");
+  let lead = {};
+
+  if (form) {
+    // Capture phase: read the fields before the other handler calls form.reset()
+    form.addEventListener("submit", function () {
+      lead = {
+        name: (form.name && form.name.value || "").trim(),
+        email: (form.email && form.email.value || "").trim(),
+        contact: (form.phone && form.phone.value || "").trim(),
+        focus: (form.focus && form.focus.value) || ""
+      };
+    }, true);
+  }
+
+  if (payBtn) {
+    payBtn.addEventListener("click", function () {
+      window.OSA_PAY.checkout(10, "Personal Call — ₹10 Booking Ticket" + (lead.focus ? " (" + lead.focus + ")" : ""), {
+        sku: "CALL-TICKET-10",
+        name: lead.name,
+        email: lead.email,
+        contact: lead.contact
+      });
+    });
+  }
+
+  /* ---- Reduced-motion fallbacks: only bind if the main script skipped them ---- */
+  if (!reduce) return;
+
+  // Mobile menu
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", function () {
+      const open = !menu.classList.toggle("hidden");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+  }
+
+  // FAQ accordion
+  document.querySelectorAll(".faq-trigger").forEach(function (btn) {
+    const item = btn.closest(".faq-item");
+    const panel = item && item.querySelector(".faq-panel");
+    if (!panel) return;
+    btn.addEventListener("click", function () {
+      const open = item.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+      panel.style.maxHeight = open ? panel.scrollHeight + "px" : "0px";
+    });
+  });
+
+  // Modal
+  const modal = document.getElementById("modal");
+  const formWrap = document.getElementById("modal-form-wrap");
+  const success = document.getElementById("modal-success");
+  if (!modal) return;
+
+  const openModal = function () {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex", "show");
+    document.body.style.overflow = "hidden";
+    if (formWrap) formWrap.classList.remove("hidden");
+    if (success) success.classList.add("hidden");
+  };
+  const closeModal = function () {
+    modal.classList.remove("show", "flex");
+    modal.classList.add("hidden");
+    document.body.style.overflow = "";
+  };
+  document.querySelectorAll("[data-open-modal]").forEach(function (b) { b.addEventListener("click", openModal); });
+  document.querySelectorAll("[data-close-modal]").forEach(function (b) { b.addEventListener("click", closeModal); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+  });
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (formWrap) formWrap.classList.add("hidden");
+      if (success) success.classList.remove("hidden");
+    });
+  }
 })();
 </script>
 </body>
